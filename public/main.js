@@ -50,10 +50,11 @@ $(function() {
             $currentInput = $inputMessage.focus();
             // Tell the server your username
 
-            addUserToRoster(username);
-            addUserToRoster(window.users);
-            removeUserFromRoster("undefined");
+            //addUserToRoster(username);
+
+            //removeUserFromRoster(username);
             socket.emit('add user', username);
+            //addUserToRoster(users);
         }
     }
 
@@ -108,6 +109,13 @@ $(function() {
         var $el = $('<li>').addClass('log').text(message);
         addMessageElement($el, options);
     }
+
+    socket.on('fill roster', function(connectedUsers) {
+
+      for (i=0;i<connectedUsers.length; i++) {
+        addUserToRoster(connectedUsers[i]);
+      }
+    })
 
     // Adds the visual chat message to the message list
     function addChatMessage (data, options) {
@@ -285,7 +293,7 @@ $(function() {
     socket.on('user joined', function (data) {
         log(data.username + ' has entered the room.');
         addParticipantsMessage(data);
-        addUserToRoster(data.username)
+        addUserToRoster(data.username);
     });
 
     // Whenever the server emits 'user left', log it in the chat body
@@ -293,7 +301,7 @@ $(function() {
         log(data.username + ' has exited the room.');
         addParticipantsMessage(data);
         removeChatTyping(data);
-        removeUserFromRoster();
+        removeUserFromRoster(data.username);
     });
 
     // Whenever the server emits 'typing', show the typing message

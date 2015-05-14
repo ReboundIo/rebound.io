@@ -10,6 +10,7 @@ $ cd RbdI
 $ npm install
 $ cd examples/chat
 $ npm install
+$ npm install socket.io
 $ node .
 ```
 
