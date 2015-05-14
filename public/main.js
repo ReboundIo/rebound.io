@@ -16,7 +16,7 @@ $(function() {
     var userRoster = document.getElementById('userRoster');
     var $loginPage = $('.login.page'); // The login page
     var $chatPage = $('.chat.page'); // The chatroom page
-
+    var userItem
     var allowMessage = 0
 
     // Prompt for setting a username
@@ -51,6 +51,8 @@ $(function() {
             // Tell the server your username
 
             addUserToRoster(username);
+            addUserToRoster(window.users);
+            removeUserFromRoster("undefined");
             socket.emit('add user', username);
         }
     }
@@ -291,6 +293,7 @@ $(function() {
         log(data.username + ' has exited the room.');
         addParticipantsMessage(data);
         removeChatTyping(data);
+        removeUserFromRoster();
     });
 
     // Whenever the server emits 'typing', show the typing message
@@ -305,7 +308,11 @@ $(function() {
 });
 
 function addUserToRoster(username) {
-    var userItem = document.createElement('li');
+    userItem = document.createElement('li');
     userItem.innerHTML = username;
     userRoster.appendChild(userItem);
+}
+
+function removeUserFromRoster(username) {
+    userRoster.removeChild(userItem);
 }
