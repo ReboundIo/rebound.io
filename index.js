@@ -86,7 +86,7 @@ io.on('connection', function (socket) {
       --numUsers;
 
     users.splice(users.indexOf(socket.username), 1);
-
+    console.log(users);
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
