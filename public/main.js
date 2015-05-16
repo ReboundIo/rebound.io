@@ -370,5 +370,5 @@ function roomCheck() {
 }
 
 function newRoom() {
-    window.location="/addPage.html";
+    window.location=".../addPage.html";
 }
