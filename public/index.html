@@ -5,9 +5,19 @@
   <title>Rebound Chat</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-color:#1c1c1c">
+<body style="background-color:#1c1c1c" onload="defaultRoom()">
   <ul class="pages">
     <ol id="userRoster" style="float:right;width:10%;background-color:#1c1c1c;color:#b3c9be">
+    </ol>
+    <ol style="float:left;width:10%;background-color:#1c1c1c;color:#b3c9be">
+      <h2>Chat Rooms:</h2>
+      <button onclick="roomA()" id="roomButton1">Main Room</button>
+      <br>
+      <button onclick="roomB()" id="roomButton2">Room 2</button>
+      <br>
+      <button onclick="roomC()" id="roomButton3">Room 3</button>
+      <br>
+      <button onclick="newRoom()" id="rooomButton3">+New Room</button>
     </ol>
     <li class="chat page" style="width:90%">
       <div class="chatArea">

@@ -1,4 +1,5 @@
 var mySocket;
+var roomNum;
 $(function() {
     var FADE_TIME = 300; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -323,4 +324,51 @@ function addUserToRoster(username) {
 
 function removeUserFromRoster(username) {
     userRoster.removeChild(userItem);
+}
+
+function roomA() {
+    window.location("http://98.247.120.28:3000/");
+    roomNum = 1;
+}
+
+function roomB() {
+    window.location("http://98.247.120.28:3001/");
+    roomNum = 2;
+}
+
+function roomC() {
+    window.location("http://98.247.120.28:3002/");
+    roomNum = 3;
+}
+
+window.onload=function() {
+    setInterval(roomCheck, 1)
+}
+
+function defaultRoom() {
+    var roomNum = 1;
+}
+
+function roomCheck() {
+    if(roomNum = 1) {
+        document.getElementById("roomButton1").style.visibility = "hidden";
+        document.getElementById("roomButton2").style.visibility = "visible";
+        document.getElementById("roomButton3").style.visibility = "visible";
+    }
+    
+     if(roomNum = 2) {
+        document.getElementById("roomButton1").style.visibility = "visible";
+        document.getElementById("roomButton2").style.visibility = "hidden";
+        document.getElementById("roomButton3").style.visibility = "visible";
+    }
+    
+     if(roomNum = 3) {
+        document.getElementById("roomButton1").style.visibility = "visible";
+        document.getElementById("roomButton2").style.visibility = "visible";
+        document.getElementById("roomButton3").style.visibility = "hidden";
+    }
+}
+
+function newRoom() {
+    window.location="/addPage.html";
 }
