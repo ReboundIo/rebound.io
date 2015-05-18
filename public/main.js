@@ -69,10 +69,14 @@ $(function() {
 
         // Prevent markup from being injected into the message
         message = cleanInput(message);
-        message = message + " ";
+        //message = message + " ";
 
         $inputMessage.val('');
-        socket.emit('new message', message);
+        if (message == "/color") {
+            log("The available colors are: maroon, red, orange, yellow, olive, green, purple, fuchsia, lime, teal, aqua, blue, navy, black, gray, silver, white.");
+        } else {
+            socket.emit('new message', message);
+        }
     }
 
     // Log a message
@@ -99,7 +103,7 @@ $(function() {
 
         var $usernameDiv = $('<span class="username"/>')
         .text(data.username)
-        .css('color', getUsernameColor(data.username));
+        .css('color', data.color);
         var $messageBodyDiv = $('<span class="messageBody">')
         .text(data.message);
 
@@ -206,18 +210,6 @@ $(function() {
         });
     }
 
-    // Gets the color of a username through our hash function
-    function getUsernameColor (username) {
-        // Compute hash code
-        var hash = 7;
-        for (var i = 0; i < username.length; i++) {
-            hash = username.charCodeAt(i) + (hash << 5) - hash;
-        }
-        // Calculate color
-        var index = Math.abs(hash % COLORS.length);
-        return COLORS[index];
-    }
-
     // Keyboard events
 
     $window.keydown(function (event) {
@@ -294,6 +286,10 @@ $(function() {
     // Whenever the server emits 'stop typing', kill the typing message
     socket.on('stop typing', function (data) {
         removeChatTyping(data);
+    });
+
+    socket.on('kick', function() {
+        alert('You have been kicked.');
     });
 });
 

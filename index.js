@@ -1,5 +1,6 @@
 var MESSAGE_LIMIT_WINDOW = 5; // number of seconds before message limit resets
 var MESSAGE_LIMIT = 5; // number of messages that can be sent per reset
+var COLOR_NAMES = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray', 'silver', 'white'];
 
 // Setup basic express server
 var express = require('express');
@@ -28,17 +29,28 @@ io.on('connection', function (socket) {
     var addedUser = false;
     var messagesSinceReset = 0;
 
+    socket.color = '#dddddd';
+
     setInterval(function() {
         messagesSinceReset = 0;
     }, MESSAGE_LIMIT_WINDOW * 1000);
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
+        if (data.split(' ')[0] == '/color') {
+            var color = data.split(' ')[1].trim();
+            if (COLOR_NAMES.indexOf(color.toLowerCase()) > -1) {
+                setColor(socket.username, color.toLowerCase());
+                sendSystemMessage(socket.username + ' changed their color to ' + color.toLowerCase());
+            }
+            return;
+        }
         // we tell the client to execute 'new message'
-        if (data.length <= 1000 & messagesSinceReset < MESSAGE_LIMIT) {
+        if (data.length <= 1000 & messagesSinceReset < MESSAGE_LIMIT && data.trim().length > 0) {
             io.sockets.emit('new message', {
                 username: socket.username,
-                message: data
+                message: data,
+                color: socket.color
             });
             messagesSinceReset++;
         }
@@ -58,7 +70,7 @@ io.on('connection', function (socket) {
 
         socket.emit("fill roster", users);
 
-        usernames[username] = username;
+        usernames[username] = socket;
         ++numUsers;
         addedUser = true;
         socket.emit('login', {
@@ -95,7 +107,6 @@ io.on('connection', function (socket) {
             --numUsers;
 
             users.splice(users.indexOf(socket.username), 1);
-            console.log(users);
             // echo globally that this client has left
             socket.broadcast.emit('user left', {
                 username: socket.username,
@@ -109,11 +120,37 @@ function sendSystemMessage(message) {
     io.sockets.emit('system', message);
 }
 
+function kick(username) {
+    usernames[username].emit('kick');
+    sendSystemMessage(username + ' has been kicked.')
+    usernames[username].disconnect();
+}
+
+function setColor(username, color) {
+    usernames[username].color = color;
+}
+
 prompt.start();
 
 (function get() {
-    prompt.get(['message'], function(error, result) {
-        sendSystemMessage(result.message);
-        get();
+    prompt.get(['command'], function(error, result) {
+        if (result.command == 'system') {
+            prompt.get(['message'], function(error, result) {
+                sendSystemMessage(result.message);
+                get();
+            });
+        }
+        if (result.command == 'kick') {
+            prompt.get(['username'], function(error, result) {
+                kick(result.username);
+                get();
+            });
+        }
+        if (result.command == 'color') {
+            prompt.get(['username', 'color'], function(error, result) {
+                setColor(result.username, result.color)
+                get();
+            });
+        }
     });
 })();
