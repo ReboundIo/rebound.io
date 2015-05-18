@@ -106,6 +106,44 @@ ul {
   color:#63ff00
 }
 
+.system {
+    color: cyan;
+    border-bottom: 1px dotted cyan;
+    animation: colorRotate 10s ease-in infinite;
+    -moz-animation: colorRotate 10s ease-in infinite;
+    -webkit-animation: colorRotate 10s ease-in infinite;
+}
+
+@keyframes colorRotate {
+    from {
+        color: rgb(255, 0, 0);
+        text-shadow: 0px 2px 8px rgb(255, 0, 0);
+    }
+    16.6% {
+        color: rgb(255, 0, 255);
+        text-shadow: 0px 2px 8px rgb(255, 0, 255);
+    }
+    33.3% {
+        color: rgb(0, 0, 255);
+        text-shadow: 0px 2px 8px rgb(0, 0, 255);
+    }
+    50% {
+        color: rgb(0, 255, 255);
+        text-shadow: 0px 2px 8px rgb(0, 255, 255);
+    }
+    66.6% {
+        color: rgb(0, 255, 0);
+        text-shadow: 0px 2px 8px rgb(0, 255, 0);
+    }
+    83.3% {
+        color: rgb(255, 255, 0);
+        text-shadow: 0px 2px 8px rgb(255, 255, 0);
+    }
+    to {
+        color: rgb(255, 0, 0);
+        text-shadow: 0px 2px 8px rgb(255, 0, 0);
+    }
+}
 .inputMessage {
   font-size: 100%;
   background-color:#5de3c9
@@ -159,16 +197,29 @@ ul {
 }
 
 #roomButton1 {
-  background-color: #63ff00
-  color: #5de3c9
+  background-color: #63ff00;
+  color: #5de3c9;
 }
 
 #roomButton2 {
-  background-color: #63ff00
-  color: #5de3c9
+  background-color: #63ff00;
+  color: #5de3c9;
 }
 
 #roomButton3 {
-  background-color: #63ff00
-  color: #5de3c9
+  background-color: #63ff00;
+  color: #5de3c9;
+}
+
+#pageReturnHome {
+  border-radius: 0px;
+  border-color: #6b36bf;
+  background-color: #6b36bf;
+  width: 215px;
+  height: 100px;
+}
+
+#returnHomeP {
+  text-align: center;
+  top: 50%
 }

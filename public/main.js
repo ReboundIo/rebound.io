@@ -17,8 +17,8 @@ $(function() {
     var userRoster = document.getElementById('userRoster');
     var $loginPage = $('.login.page'); // The login page
     var $chatPage = $('.chat.page'); // The chatroom page
-    var userItem
-    var allowMessage = 0
+    // The variable holding the amount of messages sent
+    var messagesSent = 0;
 
     // Prompt for setting a username
     var username;
@@ -60,49 +60,19 @@ $(function() {
     }
 
     function spamBlock(){
-        allowMessage = 0;
+        messagesSent = 0;
     };
 
     // Sends a chat message
     function sendMessage () {
         var message = $inputMessage.val();
+
         // Prevent markup from being injected into the message
         message = cleanInput(message);
         message = message + " ";
-        // if there is a non-empty message and a socket connection
-        if (message && connected) {
-            //from here to --
-            if (allowMessage > 100000000) {
-                alert("You must wait 10 seconds until you can chat again.");
 
-            }
-            if (allowMessage > 110000000) {
-                alert("You have tried to make an excessive amount of spam. You will now be kicked.")
-                window.location = "about:home"
-            } else if (message == "/ssac.log") {
-                var ssackey = prompt("Enter your admin key:");
-                if (ssackey == "steveBomb7") {
-                    var ssaclog = prompt("What would you like to log?");
-                    log(ssaclog);
-                } else {
-                    alert("Sorry, you don't have admin access.");
-                }
-            } else
-            //here can be ignored, removal causes bugs
-            {
-                $inputMessage.val('');
-                allowMessage++
-                addChatMessage({
-                    username: username,
-                    message: message
-                });
-
-                socket.emit('new message', message);
-            }
-
-            // tell server to execute 'new message' and send along one parameter
-        }
-        mySocket = socket;
+        $inputMessage.val('');
+        socket.emit('new message', message);
     }
 
     // Log a message
@@ -112,8 +82,7 @@ $(function() {
     }
 
     socket.on('fill roster', function(connectedUsers) {
-
-      for (i=0;i<connectedUsers.length; i++) {
+      for (i = 0; i < connectedUsers.length; i++) {
         addUserToRoster(connectedUsers[i]);
       }
     })
@@ -146,8 +115,18 @@ $(function() {
             alert("You have been kicked for spam.");
             socket.disconnect();
         }
-        //addMessageElement("blahbloobyblah", options);
-        //}
+    }
+
+    function addSystemMessage(message) {
+        var messageElement = document.createElement('li');
+        messageElement.className = 'message';
+
+        var messageBody = document.createElement('span');
+        messageBody.innerHTML = '[System] ' + message;
+        messageBody.className = 'system';
+
+        messageElement.appendChild(messageBody);
+        addMessageElement(messageElement);
     }
 
     // Adds the visual chat typing message
@@ -290,6 +269,8 @@ $(function() {
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', addChatMessage);
 
+    socket.on('system', addSystemMessage);
+
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
         log(data.username + ' has entered the room.');
@@ -316,59 +297,15 @@ $(function() {
     });
 });
 
+var userItems = {};
+
 function addUserToRoster(username) {
-    userItem = document.createElement('li');
+    var userItem = document.createElement('li');
     userItem.innerHTML = username;
     userRoster.appendChild(userItem);
+    userItems[username] = userItem;
 }
 
 function removeUserFromRoster(username) {
-    userRoster.removeChild(userItem);
-}
-
-function roomA() {
-    window.location("http://98.247.120.28:3000/");
-    roomNum = 1;
-}
-
-function roomB() {
-    window.location("http://98.247.120.28:3001/");
-    roomNum = 2;
-}
-
-function roomC() {
-    window.location("http://98.247.120.28:3002/");
-    roomNum = 3;
-}
-
-window.onload=function() {
-    setInterval(roomCheck, 1)
-}
-
-function defaultRoom() {
-    var roomNum = 1;
-}
-
-function roomCheck() {
-    if(roomNum = 1) {
-        document.getElementById("roomButton1").style.visibility = "hidden";
-        document.getElementById("roomButton2").style.visibility = "visible";
-        document.getElementById("roomButton3").style.visibility = "visible";
-    }
-    
-     if(roomNum = 2) {
-        document.getElementById("roomButton1").style.visibility = "visible";
-        document.getElementById("roomButton2").style.visibility = "hidden";
-        document.getElementById("roomButton3").style.visibility = "visible";
-    }
-    
-     if(roomNum = 3) {
-        document.getElementById("roomButton1").style.visibility = "visible";
-        document.getElementById("roomButton2").style.visibility = "visible";
-        document.getElementById("roomButton3").style.visibility = "hidden";
-    }
-}
-
-function newRoom() {
-    window.location="/addPage.html";
+    userRoster.removeChild(userItems[username]);
 }
