@@ -108,7 +108,6 @@ ul {
 
 .system {
     color: cyan;
-    border-bottom: 1px dotted cyan;
     animation: colorRotate 10s ease-in infinite;
     -moz-animation: colorRotate 10s ease-in infinite;
     -webkit-animation: colorRotate 10s ease-in infinite;
@@ -222,4 +221,32 @@ ul {
 #returnHomeP {
   text-align: center;
   top: 50%
+}
+
+.spinning {
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 20000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 20000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 20000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
 }
