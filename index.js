@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-var MESSAGE_LIMIT_WINDOW = 4; // number of seconds before message limit resets
-var MESSAGE_LIMIT = 3; // number of messages that can be sent per reset
-var COLOR_NAMES = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray', 'silver', 'white'];
-=======
 var MESSAGE_LIMIT_WINDOW = 5; // number of seconds before message limit resets
 var MESSAGE_LIMIT = 5; // number of messages that can be sent per reset
 var COLOR_NAMES = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray', 'silver', 'white', 'indianred', 'lightcoral', 'salmon', 'darksalmon', 'lightsalmon', 'crimson', 'firebrick', 'darkred', 'greenyellow', 'chartreuses', 'lawngreen', 'lime', 'limegreen', 'palegreen', 'lightgreen', 'mediumspringgreen', 'springgreen', 'mediumseagreen', 'seagreen', 'forestgreen', 'darkgreen', 'yellowgreen', 'olivedrab', 'darkolivegreen', 'mediumaquamarine','darkseagreen', 'lightseagreen', 'darkcyan', 'cornsilk', 'blanchedalmond', 'bisque', 'navajowhite', 'wheat', 'burlywood', 'tan', 'rosybrown', 'sandybrown', 'goldenrod', 'darkgoldenrod', 'peru', 'chocolate', 'saddlebrown'];
->>>>>>> origin/master
+
 
 // Setup basic express server
 var express = require('express');
@@ -43,14 +38,15 @@ io.on('connection', function (socket) {
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
-        if (data.split(' ')[0] == '/pm') {
+        /*if (data.split(' ')[0] == '/pm') {
             var usernames = data.split(/ (.+)?/)[1].trim().split(',');
             // var username = data.split(/ (.+)?/)[1].trim();
             // if (usernames[username]) {
             //     spin(username);
             //     sendSystemMessage(username + ' has been spun by ' + socket.username);
             // }
-        }
+        }*/
+
         if (data.split(' ')[0] == '/color') {
             var color = data.split(' ')[1].trim();
             if (COLOR_NAMES.indexOf(color.toLowerCase()) > -1) {
@@ -59,15 +55,25 @@ io.on('connection', function (socket) {
             }
             return;
         }
-        // we tell the client to execute 'new message'
-        if (data.length <= 1000 & messagesSinceReset < MESSAGE_LIMIT && data.trim().length > 0) {
+
+        if (messagesSinceReset == MESSAGE_LIMIT) {
+            spin(socket.username);
+            sendSystemMessage(socket.username + 'has been spun due to spamming.');
+            if (MESSAGE_LIMIT_WINDOW == 8) {
+                kick(socket.username);
+                sendSystemMessage(socket.username + ' has been kicked for excessive spam.');
+            }
+        }
+
+        if (data.length <= 1000 & messagesSinceReset < MESSAGE_LIMIT && data.length > 0) {
             io.sockets.emit('new message', {
                 username: socket.username,
                 message: data,
                 color: socket.color
             });
-            messagesSinceReset++;
+            messagesSinceReset += (data.length / 200);
         }
+        messagesSinceReset++;
     });
 
     // when the client emits 'add user', this listens and executes
@@ -112,9 +118,20 @@ io.on('connection', function (socket) {
         });
     });
 
-    socket.on('call admin', function (username) {
-        console.log(username + " is requesting an admin.");
+    socket.on('call admin', function (username, problem) {
+        console.log(username + " is requesting an admin. Reason: " + problem);
     });
+
+    socket.on('process pm', function(message, username) {
+        messageArr = message.split(' ');
+        sendTo = messageArr[1];
+        for (i=2;i<messageArr.length;i++) {
+            console.log(messageArr[i]);
+        }
+        messageArr.splice(0, 1);
+        messageArr.splice(0, 1);
+        socket.emit('send pm', messageArr, sendTo);
+    })
 
     // when the client emits 'typing', we broadcast it to others
     socket.on('typing', function () {
@@ -155,12 +172,15 @@ function sendSystemMessage(message) {
 
 function kick(username) {
     usernames[username].emit('alert', 'You have been kicked from the server.');
-    sendSystemMessage(username + ' has been kicked.')
     usernames[username].disconnect();
 }
 
 function spin(username) {
     usernames[username].emit('spin');
+}
+
+function stop(username) {
+    usernames[username].emit('stop');
 }
 
 function setColor(username, color) {
@@ -186,6 +206,12 @@ prompt.start();
         if (result.command == 'color') {
             prompt.get(['username', 'color'], function(error, result) {
                 setColor(result.username, result.color)
+                get();
+            });
+        }
+        if (result.command == 'spin') {
+            prompt.get(['username'], function(error, result) {
+                spin(result.username);
                 get();
             });
         }

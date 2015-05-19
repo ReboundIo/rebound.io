@@ -75,10 +75,12 @@ $(function() {
         if (message == "/color ") {
             log("The available colors are: maroon, red, orange, yellow, olive, green, purple, fuchsia, lime, teal, aqua, blue, navy, black, gray, silver, white.");
         } else if (message == "/calladmin ") {
-            reportReason = prompt()
+            reportReason = prompt("Why do you need an admin (if someone is causing trouble, include their username)?");
             socket.emit('call admin', username, reportReason);
         } else if (message == '/stop ') {
             document.body.className = "";
+        } else if (message.split(' ')[0] == "/pm"){
+            socket.emit('process pm', message, username);
         } else {
             socket.emit('new message', message);
         }
@@ -90,12 +92,17 @@ $(function() {
         addMessageElement($el, options);
     }
 
-    socket.on('fill roster', function(connectedUsers) {
+    socket.on('fill roster', function (connectedUsers) {
       for (i = 0; i < connectedUsers.length; i++) {
         addUserToRoster(connectedUsers[i]);
       }
     })
 
+    socket.on('send pm', function (message, recipient) {
+        if (username == 'recipient') {
+            addChatMessage(message);
+        }
+    })
     // Adds the visual chat message to the message list
     function addChatMessage (data, options) {
         // Don't fade the message in if there is an 'X was typing'
