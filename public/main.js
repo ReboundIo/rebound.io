@@ -69,11 +69,16 @@ $(function() {
 
         // Prevent markup from being injected into the message
         message = cleanInput(message);
-        //message = message + " ";
+        message = message + " ";
 
         $inputMessage.val('');
-        if (message == "/color") {
+        if (message == "/color ") {
             log("The available colors are: maroon, red, orange, yellow, olive, green, purple, fuchsia, lime, teal, aqua, blue, navy, black, gray, silver, white.");
+        } else if (message == "/calladmin ") {
+            reportReason = prompt()
+            socket.emit('call admin', username, reportReason);
+        } else if (message == '/stop ') {
+            document.body.className = "";
         } else {
             socket.emit('new message', message);
         }
@@ -288,9 +293,13 @@ $(function() {
         removeChatTyping(data);
     });
 
-    socket.on('kick', function() {
-        alert('You have been kicked.');
+    socket.on('alert', function(message) {
+        alert(message);
     });
+
+    socket.on('spin', function() {
+        document.body.className = 'spinning';
+    })
 });
 
 var userItems = {};

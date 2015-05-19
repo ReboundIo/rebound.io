@@ -1,5 +1,5 @@
-var MESSAGE_LIMIT_WINDOW = 5; // number of seconds before message limit resets
-var MESSAGE_LIMIT = 5; // number of messages that can be sent per reset
+var MESSAGE_LIMIT_WINDOW = 4; // number of seconds before message limit resets
+var MESSAGE_LIMIT = 3; // number of messages that can be sent per reset
 var COLOR_NAMES = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray', 'silver', 'white'];
 
 // Setup basic express server
@@ -37,6 +37,14 @@ io.on('connection', function (socket) {
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
+        if (data.split(' ')[0] == '/pm') {
+            var usernames = data.split(/ (.+)?/)[1].trim().split(',');
+            // var username = data.split(/ (.+)?/)[1].trim();
+            // if (usernames[username]) {
+            //     spin(username);
+            //     sendSystemMessage(username + ' has been spun by ' + socket.username);
+            // }
+        }
         if (data.split(' ')[0] == '/color') {
             var color = data.split(' ')[1].trim();
             if (COLOR_NAMES.indexOf(color.toLowerCase()) > -1) {
@@ -58,6 +66,21 @@ io.on('connection', function (socket) {
 
     // when the client emits 'add user', this listens and executes
     socket.on('add user', function (username) {
+        if (username.length > 64 || username.length < 1) {
+            socket.emit('alert', 'Usernames must be between 1 and 64 characters.');
+            socket.disconnect();
+            return;
+        }
+        if (username.indexOf(' ') > -1) {
+            socket.emit('alert', 'Usernames may not contain the space character " ".');
+            socket.disconnect();
+            return;
+        }
+        if (username[usernames]) {
+            socket.emit('alert', 'That username is taken.');
+            socket.disconnect();
+            return;
+        }
         // we store the username in the socket session for this client
 
         var address = socket.request.connection.remoteAddress;
@@ -81,6 +104,10 @@ io.on('connection', function (socket) {
             username: socket.username,
             numUsers: numUsers
         });
+    });
+
+    socket.on('call admin', function (username) {
+        console.log(username + " is requesting an admin.");
     });
 
     // when the client emits 'typing', we broadcast it to others
@@ -121,9 +148,13 @@ function sendSystemMessage(message) {
 }
 
 function kick(username) {
-    usernames[username].emit('kick');
+    usernames[username].emit('alert', 'You have been kicked from the server.');
     sendSystemMessage(username + ' has been kicked.')
     usernames[username].disconnect();
+}
+
+function spin(username) {
+    usernames[username].emit('spin');
 }
 
 function setColor(username, color) {
