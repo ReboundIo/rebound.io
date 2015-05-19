@@ -73,7 +73,7 @@ $(function() {
 
         $inputMessage.val('');
         if (message == "/color") {
-            log("The available colors are: maroon, red, orange, yellow, olive, green, purple, fuchsia, lime, teal, aqua, blue, navy, black, gray, silver, white.");
+            log("You can enter the name of any color from this site: http://www.quackit.com/html/html_color_codes.cfm");
         } else {
             socket.emit('new message', message);
         }
