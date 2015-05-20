@@ -84,6 +84,7 @@ $(function() {
             document.body.className = "";
         } else if (message.split(' ')[0] == "/pm"){
             socket.emit('process pm', message, username);
+            log("The available colors are: maroon, red, orange, yellow, olive, green, purple, fuchsia, lime, teal, aqua, blue, navy, black, gray, silver, white.");
         } else {
             socket.emit('new message', message);
         }
