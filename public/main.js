@@ -72,10 +72,9 @@ $(function() {
         message = message + " ";
 
         $inputMessage.val('');
-<<<<<<< HEAD
+
         if (message == "/color") {
             log("You can enter the name of any color from this site: http://www.quackit.com/html/html_color_codes.cfm");
-=======
         if (message == "/color ") {
             log("The available colors are: maroon, red, orange, yellow, olive, green, purple, fuchsia, lime, teal, aqua, blue, navy, black, gray, silver, white.");
         } else if (message == "/calladmin ") {
@@ -85,7 +84,6 @@ $(function() {
             document.body.className = "";
         } else if (message.split(' ')[0] == "/pm"){
             socket.emit('process pm', message, username);
->>>>>>> origin/master
         } else {
             socket.emit('new message', message);
         }
