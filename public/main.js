@@ -73,14 +73,14 @@ $(function() {
 
         $inputMessage.val('');
 
-        if (message == "/color") {
+        if (message == "/color ") {
             log("You can enter the name of any color from this site: http://www.quackit.com/html/html_color_codes.cfm");
         } else if (message == "/calladmin ") {
             reportReason = prompt("Why do you need an admin (if someone is causing trouble, include their username)?");
             socket.emit('call admin', username, reportReason);
-        } else if (message == '/stop ') {
-            document.body.className = "";
-        } else if (message.split(' ')[0] == "/pm"){
+        } //else if (message == '/stop ') {
+            //document.body.className = "";
+         else if (message.split(' ')[0] == "/pm"){
             socket.emit('process pm', message, username);
         } else {
             socket.emit('new message', message);

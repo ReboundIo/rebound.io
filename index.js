@@ -173,10 +173,12 @@ function sendSystemMessage(message) {
 function kick(username) {
     usernames[username].emit('alert', 'You have been kicked from the server.');
     usernames[username].disconnect();
+    sendSystemMessage(username + " has been kicked.");
 }
 
 function spin(username) {
     usernames[username].emit('spin');
+    sendSystemMessage(username + " has been spun by an administrator.");
 }
 
 function stop(username) {
