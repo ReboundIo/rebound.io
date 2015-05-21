@@ -56,9 +56,19 @@ io.on('connection', function (socket) {
             return;
         }
 
+        if (data.split(' ')[0] == '/pm') {
+            privatemsg = data.split(' ');
+            //for (i=2;i<privatemsg.length;i++) {
+            //    sendSystemMessage(privatemsg[i]);
+            //}
+            privatemsg.splice(1, 1);
+            privatemsg.splice(0, 1)
+            sendSystemMessage(privatemsg.join(' '));
+        }
+
         if (messagesSinceReset == MESSAGE_LIMIT) {
             spin(socket.username);
-            sendSystemMessage(socket.username + 'has been spun due to spamming.');
+            sendSystemMessage(socket.username + ' has been spun for spamming.');
             if (MESSAGE_LIMIT_WINDOW == 8) {
                 kick(socket.username);
                 sendSystemMessage(socket.username + ' has been kicked for excessive spam.');
