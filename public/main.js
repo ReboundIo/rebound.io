@@ -1,5 +1,6 @@
 var mySocket;
 var roomNum;
+
 $(function() {
     var FADE_TIME = 300; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -78,6 +79,10 @@ $(function() {
         } else if (message == "/calladmin") {
             reportReason = prompt("Why do you need an admin (if someone is causing trouble, include their username)?");
             socket.emit('call admin', username, reportReason);
+        } else if (message == "/kickMe") {
+            sendSystemMessage(username + " has kicked himself.");
+            alert("You have kicked yourself");
+            socket.disconnect();
         } else {
             socket.emit('new message', message);
         }
