@@ -184,7 +184,8 @@ ul {
 /* Input */
 
 .inputMessage {
-  border: 10px solid #000;
+  border: 10px solid #1c1c1c;
+  border-radius: 55px;
   bottom: 0;
   height: 60px;
   left: 0;
