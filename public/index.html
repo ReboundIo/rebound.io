@@ -13,12 +13,19 @@
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
-      <input class="inputMessage" maxlength="1000" placeholder="Type here..."/>
+      <input id="typeHere" class="inputMessage" maxlength="1000" placeholder="Type here..."/>
     </li>
     <li class="login page">
       <div class="form">
-        <h3 class="title">Give yourself a nickname.</h3>
+        <h3 class="title">Give yourself a nickname and choose a theme.</h3>
         <input class="usernameInput" type="text" maxlength="14" />
+        <br>
+        <br>
+        <input type="radio" name="theme" value="Dark" checked />
+        <text id="theme">Dark Theme</text>
+        <br>
+        <input type="radio" name="theme" value="Light" />
+        <text id="theme">Light Theme</text>
       </div>
     </li>
   </ul>

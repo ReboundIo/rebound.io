@@ -1,5 +1,7 @@
 var mySocket;
 var roomNum;
+var theme;
+defaultTheme();
 
 $(function() {
     var FADE_TIME = 300; // ms
@@ -312,6 +314,7 @@ $(function() {
     })
 });
 
+
 var userItems = {};
 
 function addUserToRoster(username) {
@@ -323,4 +326,19 @@ function addUserToRoster(username) {
 
 function removeUserFromRoster(username) {
     userRoster.removeChild(userItems[username]);
+}
+
+function defaultTheme() {
+    theme = "Dark";
+    document.cookie = theme+"; expires=Thu, 31 Dec 2099 12:34:56 UTC";
+}
+
+window.onload=function() {
+    setInterval(updateTheme, 1);
+}
+
+function updateTheme() {
+    if (theme == "Dark") {
+        
+    }
 }
