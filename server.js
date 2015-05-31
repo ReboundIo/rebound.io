@@ -1,6 +1,6 @@
 var MESSAGE_LIMIT_WINDOW = 5; // number of seconds before message limit resets
 var MESSAGE_LIMIT = 5; // number of messages that can be sent per reset
-var COLOR_NAMES = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray', 'silver', 'white', 'indianred', 'lightcoral', 'salmon', 'darksalmon', 'lightsalmon', 'crimson', 'firebrick', 'darkred', 'greenyellow', 'chartreuses', 'lawngreen', 'lime', 'limegreen', 'palegreen', 'lightgreen', 'mediumspringgreen', 'springgreen', 'mediumseagreen', 'seagreen', 'forestgreen', 'darkgreen', 'yellowgreen', 'olivedrab', 'darkolivegreen', 'mediumaquamarine','darkseagreen', 'lightseagreen', 'darkcyan', 'cornsilk', 'blanchedalmond', 'bisque', 'navajowhite', 'wheat', 'burlywood', 'tan', 'rosybrown', 'sandybrown', 'goldenrod', 'darkgoldenrod', 'peru', 'chocolate', 'saddlebrown', 'sienna', 'brown', 'maroon', 'lightsalmon', 'coral', 'tomato', 'orangered', 'darkorange', 'orange', 'gold', 'yellow', 'lightyellow', 'lemonchiffon', 'lightgoldenrodyellow', 'papayawhip', 'moccasin', 'peachpuff', 'palegoldenrod', 'khaki', 'darkkhaki', 'snow', 'honeydew', 'mintecream', 'azure', 'aliceblue', 'ghostwhite', 'whitesmoke', 'seashell', 'beige', 'oldlace', 'floralwhite', 'ivory', 'antiquewhite', 'linen', 'lavenderblush', 'mistyrose', 'aqua', 'cyan', 'lightcyan', 'paleturqoise', 'aquamarine', 'turqoise', 'mediumturqoise', 'darkturqoise', 'cadetblue', 'steelblue', 'lightsteelblue', 'powderblue', 'lightblue', 'skyblue', 'lightskyblue', 'deepskyblue', 'dodgerblue', 'cornflowerblue', 'mediumslateblue', 'royalblue', 'blue', 'mediumblue', 'darkblue', 'navy', 'midnightblue', 'lavender', 'thistle', 'plum', 'violet', 'orchid', 'magenta', 'mediumorchid', 'mediumpurple', 'amethyst', 'blueviolet', 'darkviolet', 'darkorchid', 'darkmagenta', 'purple', 'indigo', 'gainsboro', 'lightgrey', 'silver', 'darkgray', 'gray', 'dimgray', 'lightslategray', 'slategray', 'darkslategray', 'pink', 'lightpink', 'hotpink', 'deeppink', 'mediumvioletred', 'palevioletred'];
+var COLOR_NAMES = ['00E0FF', 'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray', 'silver', 'white', 'indianred', 'lightcoral', 'salmon', 'darksalmon', 'lightsalmon', 'crimson', 'firebrick', 'darkred', 'greenyellow', 'chartreuses', 'lawngreen', 'lime', 'limegreen', 'palegreen', 'lightgreen', 'mediumspringgreen', 'springgreen', 'mediumseagreen', 'seagreen', 'forestgreen', 'darkgreen', 'yellowgreen', 'olivedrab', 'darkolivegreen', 'mediumaquamarine','darkseagreen', 'lightseagreen', 'darkcyan', 'cornsilk', 'blanchedalmond', 'bisque', 'navajowhite', 'wheat', 'burlywood', 'tan', 'rosybrown', 'sandybrown', 'goldenrod', 'darkgoldenrod', 'peru', 'chocolate', 'saddlebrown', 'sienna', 'brown', 'maroon', 'lightsalmon', 'coral', 'tomato', 'orangered', 'darkorange', 'orange', 'gold', 'yellow', 'lightyellow', 'lemonchiffon', 'lightgoldenrodyellow', 'papayawhip', 'moccasin', 'peachpuff', 'palegoldenrod', 'khaki', 'darkkhaki', 'snow', 'honeydew', 'mintecream', 'azure', 'aliceblue', 'ghostwhite', 'whitesmoke', 'seashell', 'beige', 'oldlace', 'floralwhite', 'ivory', 'antiquewhite', 'linen', 'lavenderblush', 'mistyrose', 'aqua', 'cyan', 'lightcyan', 'paleturqoise', 'aquamarine', 'turqoise', 'mediumturqoise', 'darkturqoise', 'cadetblue', 'steelblue', 'lightsteelblue', 'powderblue', 'lightblue', 'skyblue', 'lightskyblue', 'deepskyblue', 'dodgerblue', 'cornflowerblue', 'mediumslateblue', 'royalblue', 'blue', 'mediumblue', 'darkblue', 'navy', 'midnightblue', 'lavender', 'thistle', 'plum', 'violet', 'orchid', 'magenta', 'mediumorchid', 'mediumpurple', 'amethyst', 'blueviolet', 'darkviolet', 'darkorchid', 'darkmagenta', 'purple', 'indigo', 'gainsboro', 'lightgrey', 'silver', 'darkgray', 'gray', 'dimgray', 'lightslategray', 'slategray', 'darkslategray', 'pink', 'lightpink', 'hotpink', 'deeppink', 'mediumvioletred', 'palevioletred'];
 
 
 // Setup basic express server
@@ -9,7 +9,7 @@ var prompt = require('prompt');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-
+var banned = [];
 var port = process.env.PORT || 3000;
 var users = [];
 
@@ -61,9 +61,8 @@ io.on('connection', function (socket) {
             //for (i=2;i<privatemsg.length;i++) {
             //    sendSystemMessage(privatemsg[i]);
             //}
-            privatemsg.splice(1, 1);
             privatemsg.splice(0, 1)
-            sendSystemMessage(privatemsg.join(' '));
+            socket.emit('send private message', privatemsg.join(' '), privatemsg.splice(0, 1));
         }
 
         if (messagesSinceReset == MESSAGE_LIMIT) {
@@ -88,6 +87,9 @@ io.on('connection', function (socket) {
 
     // when the client emits 'add user', this listens and executes
     socket.on('add user', function (username) {
+
+        var address = socket.request.connection.remoteAddress;
+
         if (username.length > 64 || username.length < 1) {
             socket.emit('alert', 'Usernames must be between 1 and 64 characters.');
             socket.disconnect();
@@ -105,7 +107,12 @@ io.on('connection', function (socket) {
         }
         // we store the username in the socket session for this client
 
-        var address = socket.request.connection.remoteAddress;
+        if (banned.indexOf(usernames[username]) != -1) {
+            socket.emit('alert', 'You are banned from this server.');
+            socket.disconnect();
+            return;
+        }
+
 
         socket.username = username;
         // add the client's username to the global list
@@ -186,6 +193,19 @@ function kick(username) {
     sendSystemMessage(username + " has been kicked.");
 }
 
+function ban(username) {
+    usernames[username].emit('alert', 'You are temporarily banned from the server.');
+    banned.splice(0, 0, username);
+    sendSystemMessage(username + " has been banned.");
+    usernames[username].disconnect();
+}
+
+function unban() {
+    for (i=0;i<banned.length;i++) {
+        banned.splice(i, 1);
+    }
+}
+
 function spin(username) {
     usernames[username].emit('spin');
     sendSystemMessage(username + " has been spun by an administrator.");
@@ -214,6 +234,18 @@ prompt.start();
                 kick(result.username);
                 get();
             });
+        }
+        if (result.command == 'ban') {
+            prompt.get(['username'], function(error, result) {
+                ban(result.username);
+                get();
+            });
+        }
+        if (result.command == 'unban') {
+            prompt.get(['number'], function(error, result) {
+                unban(result.number);
+                get();
+            })
         }
         if (result.command == 'color') {
             prompt.get(['username', 'color'], function(error, result) {

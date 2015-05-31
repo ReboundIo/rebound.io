@@ -19,7 +19,7 @@ $(function() {
     var $chatPage = $('.chat.page'); // The chatroom page
     // The variable holding the amount of messages sent
     var messagesSent = 0;
-
+    var bannedNames = ["rA1nB0wUn1c0rN", "rA1Nb0wUn1c0rN", "rA1Nb0w_Un1c0rN", "ra1nb0wun1c0rn", "rainbowunicorn"];
     // Prompt for setting a username
     var username;
     var connected = false;
@@ -55,6 +55,7 @@ $(function() {
 
             //removeUserFromRoster(username);
             socket.emit('add user', username);
+
             //addUserToRoster(users);
         }
     }
@@ -69,13 +70,13 @@ $(function() {
 
         // Prevent markup from being injected into the message
         message = cleanInput(message);
-        //message = message + " ";
+        message = message + " "; //adding a blank space
 
         $inputMessage.val('');
 
-        if (message == "/color") {
+        if (message == "/color ") {
             log("You can enter the name of any color from this site: http://www.quackit.com/html/html_color_codes.cfm");
-        } else if (message == "/calladmin") {
+        } else if (message == "/calladmin ") {
             reportReason = prompt("Why do you need an admin (if someone is causing trouble, include their username)?");
             socket.emit('call admin', username, reportReason);
         } else {
@@ -95,9 +96,9 @@ $(function() {
       }
     })
 
-    socket.on('send pm', function (message, recipient) {
-        if (username == 'recipient') {
-            sendMessage(message);
+    socket.on('send pm', function(message, recipient) {
+        if (username == recipient) {
+            log("PM: " + message);
         }
     })
     // Adds the visual chat message to the message list
