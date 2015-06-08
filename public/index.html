@@ -7,6 +7,11 @@
   <link rel="alternate stylesheet" type="text/css" title="light" href="light.css">
 </head>
 <body style="background-color:#1c1c1c" onload="defaultRoom()">
+  <script>
+  if (window.location != "http://104.236.234.123/") {
+      alert("The new public chatroom is running on http://104.236.234.123/. Please use that room instead of this, as that one is safer and easier to manage.");
+  }
+  </script>
   <ul class="pages">
     <ol id="userRoster" style="float:right;width:10%;background-color:#1c1c1c;color:#b3c9be">
     </ol>
