@@ -11,6 +11,10 @@ var prompt = require('prompt');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var fs = require('fs');
+
+var config = JSON.parse(fs.readFileSync('config.json'));
+
 var banned = [];
 var port = process.env.PORT || 3000;
 var users = [];
@@ -48,6 +52,8 @@ io.on('connection', function (socket) {
             //     sendSystemMessage(username + ' has been spun by ' + socket.username);
             // }
         }*/
+
+        socket.emit('message alert');
 
         if (data.split(' ')[0] == '/color') {
             var color = data.split(' ')[1].trim();
@@ -102,14 +108,14 @@ io.on('connection', function (socket) {
             socket.disconnect();
             return;
         }
-        if (username[usernames]) {
+        if (usernames[username]) {
             socket.emit('alert', 'That username is taken.');
             socket.disconnect();
             return;
         }
         // we store the username in the socket session for this client
 
-        if (banned.indexOf(usernames[username]) != -1) {
+        if (banned.indexOf([usernames[username]]) != -1) {
             socket.emit('alert', 'You are banned from this server.');
             socket.disconnect();
             return;
@@ -150,7 +156,17 @@ io.on('connection', function (socket) {
         messageArr.splice(0, 1);
         messageArr.splice(0, 1);
         socket.emit('send pm', messageArr, sendTo);
-    })
+    });
+
+    socket.on('send admin key', function(key, user, sender) {
+        if (config.keys.indexOf(key) > -1) {
+            adminKick(user, sender);
+        }
+        else {
+            socket.emit('alert', 'Sorry, only admins have access to this command.');
+            sendSystemMessage(sender + " tried to kick " + user + ".");
+        }
+    });
 
     // when the client emits 'typing', we broadcast it to others
     socket.on('typing', function () {
@@ -195,9 +211,15 @@ function kick(username) {
     sendSystemMessage(username + " has been kicked.");
 }
 
+function adminKick(username, admin) {
+    usernames[username].emit('alert', 'You have been kicked from the server.');
+    usernames[username].disconnect();
+    sendSystemMessage(username + " has been kicked by " + admin + ".");
+}
+
 function ban(username) {
     usernames[username].emit('alert', 'You are temporarily banned from the server.');
-    banned.splice(0, 0, username);
+    banned.push(usernames[username]);
     sendSystemMessage(username + " has been banned.");
     usernames[username].disconnect();
 }
@@ -206,6 +228,10 @@ function unban() {
     for (i=0;i<banned.length;i++) {
         banned.splice(i, 1);
     }
+}
+
+function giveIP(username) {
+    console.log(usernames[username]);
 }
 
 function spin(username) {
@@ -247,6 +273,12 @@ prompt.start();
         if (result.command == 'unban') {
             prompt.get(['number'], function(error, result) {
                 unban(result.number);
+                get();
+            })
+        }
+        if (result.command == 'ip') {
+            prompt.get(['username'], function(error, reult) {
+                giveIP(result.username);
                 get();
             })
         }

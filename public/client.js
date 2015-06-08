@@ -82,10 +82,21 @@ $(function() {
         } else if (message == "/calladmin ") {
             reportReason = prompt("Why do you need an admin (if someone is causing trouble, include their username)?");
             socket.emit('call admin', username, reportReason);
-        } else if (message == "/kickMe") {
-            sendSystemMessage(username + " has kicked himself.");
-            alert("You have kicked yourself");
+        } else if (message == "/kickme ") {
+            addSystemMessage("You kicked yourself.");
+            alert("Why? Why did you do this to yourself?");
             socket.disconnect();
+        } else if (message == "/help ") {
+            log("/help - displays the list of available commands");
+            log("/color - gives you a list of the available colors");
+            log("/color colornamehere - changes your username color");
+            log("/calladmin - allows you to send a private message to the admins, especially to alert them of spammers");
+            log("/pm username message - sends private messages ##does not work yet");
+            log("/kickme - kick yourself from the server");
+        } else if (message == "/kick ") {
+            verifyKey = prompt("Enter your admin key:");
+            kickUser = prompt("Who do you want to kick?");
+            socket.emit('send admin key', verifyKey, kickUser, username);
         } else {
             socket.emit('new message', message);
         }
@@ -108,6 +119,9 @@ $(function() {
             log("PM: " + message);
         }
     })
+
+
+
     // Adds the visual chat message to the message list
     function addChatMessage (data, options) {
         // Don't fade the message in if there is an 'X was typing'
