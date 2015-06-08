@@ -223,10 +223,6 @@ ul {
     -ms-animation-timing-function: linear;
 }
 
-#theme {
-  color: #ffffff;
-}
-
 
 @-moz-keyframes spin {
     from { -moz-transform: rotate(0deg); }

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Rebound Chat</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" type="text/css" title="dark" href="dark.css">
+  <link rel="alternate stylesheet" type="text/css" title="light" href="light.css">
 </head>
 <body style="background-color:#1c1c1c" onload="defaultRoom()">
   <ul class="pages">
@@ -24,8 +25,8 @@
         <input type="radio" name="theme" value="Dark" checked />
         <text id="theme">Dark Theme</text>
         <br>
-        <input type="radio" name="theme" value="Light" />
-        <text id="theme">Light Theme</text>
+        <input type="submit" onclick="switch_style('dark');return false;" name="theme" id="dark" />
+        <input type="submit" onclick="switch_style('light');return false;" name="theme" id="light" />
       </div>
     </li>
   </ul>
