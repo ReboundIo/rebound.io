@@ -1,6 +1,7 @@
 var mySocket;
 var roomNum;
 var theme;
+var unreadMessages = 0;
 defaultTheme();
 
 $(function() {
@@ -98,6 +99,8 @@ $(function() {
             kickUser = prompt("Who do you want to kick?");
             socket.emit('send admin key', verifyKey, kickUser, username);
         } else {
+            unreadMessages = 0;
+            updateTitle();
             socket.emit('new message', message);
         }
     }
@@ -290,7 +293,11 @@ $(function() {
     });
 
     // Whenever the server emits 'new message', update the chat body
-    socket.on('new message', addChatMessage);
+    socket.on('new message', function() {
+        unreadMessages++;
+        updateTitle();
+        addChatMessage(message);
+    });
 
     socket.on('system', addSystemMessage);
 
@@ -325,7 +332,7 @@ $(function() {
 
     socket.on('spin', function() {
         document.body.className = 'spinning';
-    })
+    });
 });
 
 
@@ -349,10 +356,24 @@ function defaultTheme() {
 
 window.onload=function() {
     setInterval(updateTheme, 1);
-}
+};
+
+document.onmousemove = function() {
+    unreadMessages = 0;
+    updateTitle();
+};
 
 function updateTheme() {
     if (theme == "Dark") {
-        
+
+    }
+}
+
+function updateTitle() {
+    if (unreadMessages == 0) {
+        document.title = 'Rebound Chat';
+    }
+    else {
+        document.title = '[' + unreadMessages + '] Rebound Chat';
     }
 }
