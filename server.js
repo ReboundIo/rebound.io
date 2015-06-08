@@ -16,7 +16,7 @@ var fs = require('fs');
 var config = JSON.parse(fs.readFileSync('config.json'));
 
 var banned = [];
-var port = process.env.PORT || 3000;
+var port = config.port;
 var users = [];
 
 server.listen(port, function () {
