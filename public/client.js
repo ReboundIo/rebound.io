@@ -99,8 +99,6 @@ $(function() {
             kickUser = prompt("Who do you want to kick?");
             socket.emit('send admin key', verifyKey, kickUser, username);
         } else {
-            unreadMessages = 0;
-            updateTitle();
             socket.emit('new message', message);
         }
     }
@@ -293,9 +291,11 @@ $(function() {
     });
 
     // Whenever the server emits 'new message', update the chat body
-    socket.on('new message', function() {
-        unreadMessages++;
-        updateTitle();
+    socket.on('new message', function(message) {
+        if (!windowFocused) {
+            unreadMessages++;
+            updateTitle();
+        }
         addChatMessage(message);
     });
 
@@ -358,10 +358,15 @@ window.onload=function() {
     setInterval(updateTheme, 1);
 };
 
-document.onmousemove = function() {
+window.onfocus = function() {
+    windowFocused = true;
     unreadMessages = 0;
     updateTitle();
 };
+
+window.onblur = function() {
+    windowFocused = false;
+}
 
 function updateTheme() {
     if (theme == "Dark") {
