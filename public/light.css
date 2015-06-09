@@ -29,6 +29,7 @@ html, body {
 ul {
   list-style: none;
   word-wrap: break-word;
+  color: #3e3e3e;
 }
 
 /* Pages */
@@ -65,7 +66,7 @@ ul {
 .login.page .form .usernameInput {
   background-color: transparent;
   border: none;
-  border-bottom: 2px solid #63ff00;
+  border-bottom: 2px solid darkmagenta;
   outline: none;
   padding-bottom: 15px;
   text-align: center;
@@ -73,12 +74,12 @@ ul {
 }
 
 .login.page .form .usernameInput:hover {
-  border-bottom: 2px solid #0099cc;
+  border-bottom: 2px solid darkorchid;
 }
 
 .login.page .title {
   font-size: 300%;
-  color:#228b22
+  color: darkorchid;
 }
 
 .login.page .usernameInput {
@@ -87,7 +88,7 @@ ul {
 }
 
 .login.page .title, .login.page .usernameInput {
-  color: #0000E6;
+  color: darkmagenta;
   font-weight: 100;
 }
 
@@ -96,14 +97,14 @@ ul {
 .chat.page {
   display: none;
   /*background-color:#2d2d2d*/
-  background-color:#1c1c1c
+  background-color:lightgray;
 }
 
 /* Font */
 
 .messages {
   font-size: 150%;
-  color:#63ff00
+  color: darkorchid;
 }
 
 .system {
@@ -145,11 +146,11 @@ ul {
 }
 .inputMessage {
   font-size: 100%;
-  background-color:#00FF00;
+  background-color:#5de3c9
 }
 
 .log {
-  color: gray;
+  color: #34a4b4;
   font-size: 70%;
   margin: 5px;
   text-align: center;
@@ -170,7 +171,7 @@ ul {
 }
 
 .message.typing .messageBody {
-  color: gray;
+  color: #e74949;
 }
 
 .username {
@@ -184,7 +185,8 @@ ul {
 /* Input */
 
 .inputMessage {
-  border: 10px solid #000;
+  border: 10px solid lightgray;
+  border-radius: 55px;
   bottom: 0;
   height: 60px;
   left: 0;
@@ -193,6 +195,22 @@ ul {
   position: absolute;
   right: 0;
   width: 100%;
+  background-color: darkgray;
+}
+
+#roomButton1 {
+  background-color: #63ff00;
+  color: #5de3c9;
+}
+
+#roomButton2 {
+  background-color: #63ff00;
+  color: #5de3c9;
+}
+
+#roomButton3 {
+  background-color: #63ff00;
+  color: #5de3c9;
 }
 
 #pageReturnHome {
@@ -223,6 +241,18 @@ ul {
     -ms-animation-timing-function: linear;
 }
 
+body {
+    background-color: lightgray;
+}
+
+#theme {
+  color: #ffffff;
+}
+
+li {
+    background-color: lightgray;
+    color: #446d1d;
+}
 
 @-moz-keyframes spin {
     from { -moz-transform: rotate(0deg); }

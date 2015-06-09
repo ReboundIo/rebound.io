@@ -239,8 +239,16 @@ ul {
     -ms-animation-timing-function: linear;
 }
 
+body {
+    background-color: #1c1c1c;
+}
+
 #theme {
   color: #ffffff;
+}
+
+#userRoster {
+    color: #1c1c1c;
 }
 
 
