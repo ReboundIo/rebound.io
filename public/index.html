@@ -7,12 +7,13 @@
   <link rel="alternate stylesheet" type="text/css" title="light" href="light.css">
 </head>
 <body style="background-color:#1c1c1c" onload="defaultRoom()">
-  <script>
-  if (window.location != "http://chat.reboundsys.com/") {
-      alert("The new public chatroom is running on http://chat.reboundsys.com/. Please use that room instead of this, as that one is safer and easier to manage.");
-  }
-  </script>
   <ul class="pages">
+    <script>
+        if (window.location != "http://chat.reboundsys.com/") {
+            alert("The new public chat server is running on 'http://chat.reboundsys.com/'. We'd appreciate if you used that page instead of this, as that server is easier to manage for us. Thanks!");
+            alert("This server is now only used for testing. Updates will be made in installments on the main server. You can consider this the unstable server. New features will show up instantly here, but will be very buggy. The main server will have new features come bundled in updates with minimal bugs.");
+        }
+    </script>
     <ol id="userRoster" style="float:right;width:10%;background-color:#1c1c1c;color:#b3c9be">
     </ol>
     <li class="chat page" style="width:90%">
