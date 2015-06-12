@@ -4,7 +4,6 @@ var theme;
 var unreadMessages = 0;
 var i, link_tag;
 var clientStyle;
-defaultTheme();
 
 $(function() {
     var FADE_TIME = 300; // ms
