@@ -212,6 +212,12 @@ function kick(username) {
     sendSystemMessage(username + " has been kicked.");
 }
 
+function kickAll() {
+    for (var username in usernames) {
+        kick(username);
+    }
+}
+
 function adminKick(username, admin) {
     usernames[username].emit('alert', 'You have been kicked from the server.');
     usernames[username].disconnect();
@@ -294,6 +300,10 @@ prompt.start();
                 spin(result.username);
                 get();
             });
+        }
+        if (result.command == 'kickall') {
+            kickAll();
+            get();
         }
     });
 })();
