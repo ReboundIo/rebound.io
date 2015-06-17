@@ -386,7 +386,7 @@ function updateTitle() {
 
 //Script for changing the theme.
 
-function switch_style(css_title) {
+function switchStyle(css_title) {
   var i, link_tag ;
   for (i = 0, link_tag = document.getElementsByTagName("link") ;
     i < link_tag.length ; i++ ) {
