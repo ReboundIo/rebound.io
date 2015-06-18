@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     var addedUser = false;
     var messagesSinceReset = 0;
 
-    socket.color = '#dddddd';
+    socket.color = 'white';
 
     setInterval(function() {
         messagesSinceReset = 0;
