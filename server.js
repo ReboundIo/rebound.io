@@ -31,6 +31,12 @@ if (!fs.existsSync('config.json')) {
     });
 }
 
+else {
+    loadConfiguration(function() {
+        startServer();
+    })
+}
+
 function loadConfiguration(callback) {
     config = JSON.parse(fs.readFileSync('config.json'));
     console.log('Read configuration from `config.json`.');
@@ -42,7 +48,7 @@ function loadConfiguration(callback) {
             name: 'password',
             hidden: true
         }], function(error, result) {
-            if (result === '') {
+            if (result.password === '') {
                 console.log('Skipped adding admin key.');
                 callback();
             }
@@ -79,7 +85,7 @@ function startServer() {
     var users = [];
 
     server.listen(port);
-    console.log('Started server on port ' + port);
+    console.log('Started server on port ' + port + '.');
 
     // Routing
     app.use(express.static(__dirname + '/public'));
