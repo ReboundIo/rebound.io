@@ -1,27 +1,41 @@
-
 # Rebound Chat
 
-An online opensource chat server
+An online open-source chat server
 
-## How to use
+## Usage
 
-```
-$ cd RbdI
-$ npm install
-$ cd examples/chat
-$ npm install
-$ npm install socket.io
-$ node .
-```
+    $ git clone git@github.com:ReboundIo/rebound.io.git
+    $ cd rebound.io
+    $ npm install
+    $ node server.js
 
-And point your browser to `http://localhost:3000`. Optionally, specify
-a port by supplying the `PORT` env variable.
+The first time you start the server, you will be prompted to enter an admin key. This is highly recommended as it will let you access the administrative commands such as kicking and sending announcements.
+
+## Configuration
+
+After starting the server for the first time, the configuration can be accessed from `config.json` in the server's root directory. Restart the server to have configuration changes take effect.
+
+### `port` (default: `3000`)
+
+The HTTP port on which the server will listen.
+
+### `keys` (default: `[]`)
+
+An array of strings representing the admin keys. Users will be able to access administrative features using one of the keys specified in this list.
+
+### `messageLimitWindow` (default: `5`)
+
+The amount of time, in seconds, before the anti-spam cooldown resets.
+
+### `messageLimit` (default `5`)
+
+The amount of messages a user will be able to send until the anti-spam cooldown resets. In other words, after the user sends `messageLimit` messages, they won't be able to send any more until `messageLimitWindow` seconds later.
 
 ## Features
 
-- Multiple users can join a chat room by each logging into an account or joining as a guest, choosing any name they want.
-- Spam Bot to automatically filter out spam messages and discipline spammers.
-- Commands in chat.
-- Users can type chat messages to the chat room.
-- A notification is sent to all users when a user joins or leaves
-the chatroom.
+- Multi-user chat room
+- Anti-spam filter
+- Custom name coloring
+- Unread message notification
+- Kick and ban users
+- Chat logging

@@ -6,11 +6,6 @@ var themeSelect;
 $(function() {
     var FADE_TIME = 300; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
-    var COLORS = [
-        '#e21400', '#91580f', '#f8a700', '#f78b00',
-        '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-        '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ];
 
     // Initialize varibles
     var $window = $(window);
@@ -384,7 +379,7 @@ function updateTitle() {
 
 //Script for changing the theme.
 
-function switch_style(css_title) {
+function switchStyle(css_title) {
   var i, link_tag ;
   for (i = 0, link_tag = document.getElementsByTagName("link") ;
     i < link_tag.length ; i++ ) {
@@ -406,13 +401,13 @@ function updateTheme() {
     themeSelect = document.getElementById("themeSelect").value;
     
     if (themeSelect = "Dark Theme") {
-        switch_style('dark');
+        switchStyle('dark');
         return false;
     } else if (themeSelect = "Light Theme") {
-        switch_style('dark');
+        switchStyle('dark');
         return false;
     } else if (themeSelect = "Seahawks Theme") {
-        switch_style('blue');
+        switchStyle('blue');
         return false;
     }
 }
