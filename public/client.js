@@ -1,9 +1,7 @@
 var mySocket;
-var roomNum;
-var theme;
 var unreadMessages = 0;
 var i, link_tag;
-var clientStyle;
+var themeSelect;
 
 $(function() {
     var FADE_TIME = 300; // ms
@@ -398,4 +396,23 @@ function switch_style(css_title) {
       }
     }
   }
+}
+
+window.onload=function() {
+    setInterval(updateTheme,1);
+}
+
+function updateTheme() {
+    themeSelect = document.getElementById("themeSelect").value;
+    
+    if (themeSelect = "Dark Theme") {
+        switch_style('dark');
+        return false;
+    } else if (themeSelect = "Light Theme") {
+        switch_style('dark');
+        return false;
+    } else if (themeSelect = "Seahawks Theme") {
+        switch_style('blue');
+        return false;
+    }
 }
