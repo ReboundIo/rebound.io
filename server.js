@@ -20,8 +20,8 @@ if (!fs.existsSync('config.json')) {
     config = {
         port: 3000,
         keys: [],
-        messageLimit: 5,
-        messageLimitWindow: 5
+        messageLimitWindow: 5,
+        messageLimit: 5
     };
 
     saveConfiguration(function() {
