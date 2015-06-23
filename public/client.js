@@ -89,9 +89,13 @@ $(function() {
             log("/pm username message - sends private messages ##does not work yet");
             log("/kickme - kick yourself from the server");
         } else if (message == "/kick ") {
+            var verifyKey = prompt("Enter your admin key:");
+            var kickUser = prompt("Who do you want to kick?");
+            socket.emit('send admin key: kick', verifyKey, kickUser, username);
+        } else if (message == "/spin ") {
             verifyKey = prompt("Enter your admin key:");
-            kickUser = prompt("Who do you want to kick?");
-            socket.emit('send admin key', verifyKey, kickUser, username);
+            var spinUser = prompt("Who would you like to spin?");
+            socket.emit('send admin key: spin', verifyKey, spinUser, username);
         } else {
             socket.emit('new message', message);
         }

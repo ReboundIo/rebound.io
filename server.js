@@ -229,7 +229,7 @@ function startServer() {
             socket.emit('send pm', messageArr, sendTo);
         });
 
-        socket.on('send admin key', function(key, user, sender) {
+        socket.on('send admin key: kick', function(key, user, sender) {
             if (config.keys.indexOf(key) > -1) {
                 adminKick(user, sender);
             }
@@ -269,6 +269,14 @@ function startServer() {
                     numUsers: numUsers
                 });
             }
+        });
+        
+        socket.on('send admin key: spin', function(key, user, sender) {
+           if (config.keys.indexOf(key) > -1) {
+               spin(user);
+           } else {
+               sendSystemMessage(sender + " tried to spin " + user + ".");
+           }
         });
     });
 
