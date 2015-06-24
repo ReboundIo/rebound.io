@@ -397,10 +397,6 @@ function switchStyle(css_title) {
   }
 }
 
-window.onload=function() {
-    setInterval(updateTheme,1);
-}
-
 function updateTheme() {
     themeSelect = document.getElementById("themeSelect").value;
     

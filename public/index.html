@@ -15,15 +15,17 @@
             alert("This server is now only used for testing. Updates will be made in installments on the main server. You can consider this the unstable server. New features will show up instantly here, but will be very buggy. The main server will have new features come bundled in updates with minimal bugs.");
         }
     </script>
-    <ol id="userRoster" style="float:right;width:10%;color:#b3c9be">
-    </ol>
     <div class="themeStuff">
       <select id="themeSelect">
         <option>Dark Theme</option>
         <option>Light Theme</option>
         <option>Seahawks Theme</option>
       </select>
+      <button onclick="updateTheme">Set Theme</button>
     </div>
+
+    <ol id="userRoster" style="float:right;width:10%;color:#b3c9be">
+    </ol>
     <li class="chat page" style="width:90%">
       <div class="chatArea">
         <ul class="messages"></ul>
