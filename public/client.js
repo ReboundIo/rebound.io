@@ -92,12 +92,12 @@ $(function() {
             var verifyKey = prompt("Enter your admin key:");
             var kickUser = prompt("Who do you want to kick?");
             socket.emit('send admin key: kick', verifyKey, kickUser, username);
-        } else if (message == "/spin ") {
+        } else if (message == "/spin ") {
             verifyKey = prompt("Enter your admin key:");
             var spinUser = prompt("Who would you like to spin?");
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
         } else {
-            socket.emit('new message', message);
+            socket.emit('new message', message, 1, username);
         }
     }
 
@@ -399,7 +399,7 @@ function switchStyle(css_title) {
 
 function updateTheme() {
     themeSelect = document.getElementById("themeSelect").value;
-    
+
     if (themeSelect = "Dark Theme") {
         switchStyle('dark');
         return false;

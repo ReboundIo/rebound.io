@@ -9,6 +9,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
+var logMessage;
 
 var config;
 
@@ -107,7 +108,7 @@ function startServer() {
         }, MESSAGE_LIMIT_WINDOW * 1000);
 
         // when the client emits 'new message', this listens and executes
-        socket.on('new message', function (data, room) {
+        socket.on('new message', function (data, room, sender) {
             /*if (data.split(' ')[0] == '/pm') {
                 var usernames = data.split(/ (.+)?/)[1].trim().split(',');
                 // var username = data.split(/ (.+)?/)[1].trim();
@@ -119,11 +120,9 @@ function startServer() {
 
             socket.emit('message alert');
 
-            fs.writeFile("logs", data, function(err) {
-                if(err) {
-                    return console.log(err);
-                }
-            });
+            logMessage = Date() + ": " + sender + ": " + data;
+
+            fs.appendFileSync('./logs.txt', "\n" + logMessage);
 
             if (data.split(' ')[0] == '/color') {
                 var color = data.split(' ')[1].trim();
@@ -270,10 +269,10 @@ function startServer() {
                 });
             }
         });
-        
+
         socket.on('send admin key: spin', function(key, user, sender) {
            if (config.keys.indexOf(key) > -1) {
-               spin(user);
+               adminSpin(user, sender);
            } else {
                sendSystemMessage(sender + " tried to spin " + user + ".");
            }
@@ -322,6 +321,11 @@ function startServer() {
     function spin(username) {
         usernames[username].emit('spin');
         sendSystemMessage(username + " has been spun by an administrator.");
+    }
+
+    function adminSpin(username, admin) {
+        usernames[username].emit('spin');
+        sendSystemMessage(username + " has been spun by " + admin + ".");
     }
 
     function stop(username) {
