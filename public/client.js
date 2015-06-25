@@ -366,12 +366,6 @@ window.onblur = function() {
     windowFocused = false;
 }
 
-function updateTheme() {
-    if (theme == "Dark") {
-
-    }
-}
-
 function updateTitle() {
     if (unreadMessages == 0) {
         document.title = 'Rebound Chat';
