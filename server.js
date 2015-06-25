@@ -361,7 +361,7 @@ function startServer() {
                 prompt.get(['number'], function(error, result) {
                     unban(result.number);
                     get();
-                })
+                });
             }
             if (result.command == 'ip') {
                 prompt.get(['username'], function(error, reult) {
