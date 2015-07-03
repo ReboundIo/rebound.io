@@ -277,6 +277,12 @@ function startServer() {
                sendSystemMessage(sender + " tried to spin " + user + ".");
            }
         });
+
+        socket.on('send admin key: sys', function(key, msg) {
+          if (config.keys.indexOf(key) > -1) {
+            sendSystemMessage(msg);
+          }
+        });
     });
 
     function sendSystemMessage(message) {
