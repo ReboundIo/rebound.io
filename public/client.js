@@ -96,7 +96,7 @@ $(function() {
             verifyKey = prompt("Enter your admin key:");
             var spinUser = prompt("Who would you like to spin?");
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
-        } else if (message == "/sys"){
+        } else if (message == "/sys "){
             verifyKey = prompt("Enter your admin key:");
             var sysmsg = prompt("What system message would you like to send?");
             socket.emit('send admin key: sys', verifyKey, sysmsg);
