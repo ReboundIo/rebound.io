@@ -391,7 +391,7 @@ function switchStyle(css_title) {
   }
 }
 
-function updateTheme() {
+/*function updateTheme() {
     themeSelect = document.getElementById("themeSelect").value;
 
     if (themeSelect = "Dark Theme") {
@@ -404,4 +404,4 @@ function updateTheme() {
         switchStyle('blue');
         return false;
     }
-}
+}*/
