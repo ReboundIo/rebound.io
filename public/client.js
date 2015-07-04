@@ -97,7 +97,7 @@ $(function() {
             verifyKey = prompt("Enter your admin key:");
             var spinUser = prompt("Who would you like to spin?");
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
-        } else if (message == "/sys"){
+        } else if (message == "/sys "){
             verifyKey = prompt("Enter your admin key:");
             var sysmsg = prompt("What system message would you like to send?");
             socket.emit('send admin key: sys', verifyKey, sysmsg);
@@ -400,6 +400,7 @@ function switchStyle(css_title) {
   }
 }
 
+<<<<<<< HEAD
 //function updateTheme() {
 //    themeSelect = document.getElementById("themeSelect").value;
 //
@@ -427,3 +428,19 @@ function setCookie(cookiename,cookievalue,expdate) {
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname+"="+cvalue+"; "+expires;
 }
+=======
+/*function updateTheme() {
+    themeSelect = document.getElementById("themeSelect").value;
+
+    if (themeSelect = "Dark Theme") {
+        switchStyle('dark');
+        return false;
+    } else if (themeSelect = "Light Theme") {
+        switchStyle('dark');
+        return false;
+    } else if (themeSelect = "Seahawks Theme") {
+        switchStyle('blue');
+        return false;
+    }
+}*/
+>>>>>>> origin/master
