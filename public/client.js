@@ -2,6 +2,7 @@ var mySocket;
 var unreadMessages = 0;
 var i, link_tag;
 var themeSelect;
+checkNameColor();
 
 $(function() {
     var FADE_TIME = 300; // ms
@@ -335,6 +336,10 @@ $(function() {
     socket.on('spin', function() {
         document.body.className = 'spinning';
     });
+
+    socket.on('save color to cookie', function(color){
+      setCookie("name color", color, "Thu, 31 Dec 2099 12:00:00 UTC");
+    });
 });
 
 
@@ -395,17 +400,30 @@ function switchStyle(css_title) {
   }
 }
 
-function updateTheme() {
-    themeSelect = document.getElementById("themeSelect").value;
+//function updateTheme() {
+//    themeSelect = document.getElementById("themeSelect").value;
+//
+//    if (themeSelect = "Dark Theme") {
+//        switchStyle('dark');
+//        return false;
+//    } else if (themeSelect = "Light Theme") {
+//        switchStyle('dark');
+//        return false;
+//    } else if (themeSelect = "Seahawks Theme") {
+//        switchStyle('blue');
+//        return false;
+//    }
+//}
 
-    if (themeSelect = "Dark Theme") {
-        switchStyle('dark');
-        return false;
-    } else if (themeSelect = "Light Theme") {
-        switchStyle('dark');
-        return false;
-    } else if (themeSelect = "Seahawks Theme") {
-        switchStyle('blue');
-        return false;
-    }
+//Name color stuff
+function checkNameColor() {
+  var checkColor = document.cookie;
+  socket.emit('set prev color', checkColor, username);
+}
+
+function setCookie(cookiename,cookievalue,expdate) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
 }
