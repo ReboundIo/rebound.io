@@ -399,7 +399,6 @@ function switchStyle(css_title) {
   }
 }
 
-<<<<<<< HEAD
 //function updateTheme() {
 //    themeSelect = document.getElementById("themeSelect").value;
 //
@@ -427,7 +426,7 @@ function setCookie(cookiename,cookievalue,expdate) {
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname+"="+cvalue+"; "+expires;
 }
-=======
+
 /*function updateTheme() {
     themeSelect = document.getElementById("themeSelect").value;
 
@@ -442,4 +441,3 @@ function setCookie(cookiename,cookievalue,expdate) {
         return false;
     }
 }*/
->>>>>>> origin/master
