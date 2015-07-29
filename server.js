@@ -131,6 +131,7 @@ function startServer() {
                     sendSystemMessage(socket.username + ' changed their color to ' + color.toLowerCase());
                 }
                 return;
+                socket.emit('save color to cookie', color);
             }
 
             if (data.split(' ')[0] == '/pm') {
@@ -278,6 +279,10 @@ function startServer() {
           if (config.keys.indexOf(key) > -1) {
             sendSystemMessage(msg);
           }
+        });
+
+        socket.on('set prev color', function(color, username){
+          setColor(color, username);
         });
     });
 
