@@ -1,0 +1,9 @@
+v0.7
+
+FEATURES ~
+
+- added private messages
+
+CHANGES ~
+
+- /help now lists /pm as an available command

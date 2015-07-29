@@ -217,15 +217,11 @@ function startServer() {
             console.log(username + " is requesting an admin. Reason: " + problem);
         });
 
-        socket.on('process pm', function(message, username) {
+        socket.on('process pm', function(message, username, sender) {
             messageArr = message.split(' ');
             sendTo = messageArr[1];
-            for (i=2;i<messageArr.length;i++) {
-                console.log(messageArr[i]);
-            }
-            messageArr.splice(0, 1);
-            messageArr.splice(0, 1);
-            socket.emit('send pm', messageArr, sendTo);
+
+            io.sockets.emit('send pm', message, sendTo, sender);
         });
 
         socket.on('send admin key: kick', function(key, user, sender) {

@@ -86,7 +86,7 @@ $(function() {
             log("/color - gives you a list of the available colors");
             log("/color colornamehere - changes your username color");
             log("/calladmin - allows you to send a private message to the admins, especially to alert them of spammers");
-            log("/pm username message - sends private messages ##does not work yet");
+            log("/pm username message - sends a private message to a user");
             log("/kickme - kick yourself from the server");
         } else if (message == "/kick ") {
             var verifyKey = prompt("Enter your admin key:");
@@ -96,10 +96,9 @@ $(function() {
             verifyKey = prompt("Enter your admin key:");
             var spinUser = prompt("Who would you like to spin?");
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
-        } else if (message == "/sys "){
-            verifyKey = prompt("Enter your admin key:");
-            var sysmsg = prompt("What system message would you like to send?");
-            socket.emit('send admin key: sys', verifyKey, sysmsg);
+        } else if (message.split(' ')[0] == "/pm") {
+            socket.emit('process pm', message, message.split(' ')[1], username);
+
         } else {
           socket.emit('new message', message, 1, username);
         }
@@ -117,9 +116,9 @@ $(function() {
       }
     })
 
-    socket.on('send pm', function(message, recipient) {
+    socket.on('send pm', function(message, recipient, sender) {
         if (username == recipient) {
-            log("PM: " + message);
+            log(sender + " sent you: " + message);
         }
     })
 

@@ -1,6 +1,6 @@
 {
   "name": "rebound",
-  "version": "0.5.6",
+  "version": "0.7",
   "description": "an online opensource chat server",
   "main": "index.js",
   "author": "Aryan Jha",
