@@ -2,7 +2,7 @@ var mySocket;
 var unreadMessages = 0;
 var i, link_tag;
 var themeSelect;
-checkNameColor();
+//checkNameColor();
 
 $(function() {
     var FADE_TIME = 300; // ms
@@ -415,7 +415,8 @@ function switchStyle(css_title) {
 //}
 
 //Name color stuff
-function checkNameColor() {
+
+/*function checkNameColor() {
   var checkColor = document.cookie;
   socket.emit('set prev color', checkColor, username);
 }
@@ -425,7 +426,7 @@ function setCookie(cookiename,cookievalue,expdate) {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname+"="+cvalue+"; "+expires;
-}
+}*/
 
 /*function updateTheme() {
     themeSelect = document.getElementById("themeSelect").value;
