@@ -1,21 +1,11 @@
-<<<<<<< HEAD
+
 v0.7.2
+
 BUGFIXES ~- user roster now works on all browsers
 
+
+----------
 v0.7
-
-
-FEATURES ~
-
-- added private messages
-
-
-CHANGES ~
-
-- /help now lists /pm as an available command
-=======
-v0.7
-
 FEATURES ~
 
 - added private messages
