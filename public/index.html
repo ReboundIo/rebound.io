@@ -1,45 +1,45 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Rebound Chat</title>
-  <link rel="stylesheet" type="text/css" title="dark" href="dark.css">
-  <link rel="alternate stylesheet" type="text/css" title="light" href="light.css">
-  <link rel="alternate stylesheet" type="text/css" title="blue" href="blue.css">
-</head>
-<body onload="defaultRoom()">
-  <ul class="pages">
-    <ol id="userRoster" style="float:right;width:10%;height:50%;color:#b3c9be">
-    </ol>
-    <ol id="roomSelect" style="float:right;width:10%;height:50%;color:#b3c9be;margin-top:50%">
-    </ol>
-    <!--<div class="themeStuff">
-      <select id="themeSelect">
-        <option>Dark Theme</option>
-        <option>Light Theme</option>
-        <option>Seahawks Theme</option>
-      </select>
-      <button onclick="updateTheme">Set Theme</button>
-    </div>-->
+  <head>
+    <meta charset="UTF-8">
+    <title>Rebound Chat</title>
+    <link rel="stylesheet" type="text/css" title="dark" href="dark.css">
+    <link rel="alternate stylesheet" type="text/css" title="light" href="light.css">
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="blue.css">
+  </head>
+  <body onload="defaultRoom()">
+    <ul class="pages">
+      <ol id="userRoster" style="float:right;width:10%;height:50%;color:#b3c9be">
+      </ol>
+      <!--<ol id="roomSelect" style="float:right;width:10%;height:50%;color:#b3c9be;margin-top:50%">
+      </ol>-->
+      <!--<div class="themeStuff">
+        <select id="themeSelect">
+          <option>Dark Theme</option>
+          <option>Light Theme</option>
+          <option>Seahawks Theme</option>
+        </select>
+        <button onclick="updateTheme">Set Theme</button>
+      </div>-->
 
-    <li class="chat page" style="width:90%">
-      <div class="chatArea">
-        <ul class="messages"></ul>
-      </div>
-      <input id="typeHere" class="inputMessage" maxlength="1000" placeholder="Type here..."/>
-    </li>
-    <li class="login page">
-      <div class="form">
-        <h3 class="title">Give yourself a nickname.</h3>
-        <input class="usernameInput" type="text" maxlength="14" />
-        <br>
-        <br>
-      </div>
-    </li>
-  </ul>
+      <li class="chat page" style="width:90%">
+        <div class="chatArea">
+          <ul class="messages"></ul>
+        </div>
+        <input id="typeHere" class="inputMessage" maxlength="1000" placeholder="Type here..."/>
+      </li>
+      <li class="login page">
+        <div class="form">
+          <h3 class="title">Give yourself a nickname.</h3>
+          <input class="usernameInput" type="text" maxlength="14" />
+          <br>
+          <br>
+        </div>
+      </li>
+    </ul>
 
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/client.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
 </html>
