@@ -122,7 +122,10 @@ function startServer() {
 
             logMessage = Date() + ": " + sender + ": " + data;
 
-            fs.appendFileSync('./logs.txt', "\n" + logMessage);
+            logDate = new Date();
+            logFileMonth = logDate.getMonth() + 1; // adding 1 to month so january is 1 instead of 0
+            logFileDate = logDate.getDate();
+            fs.appendFile(logFileMonth + '-' + logFileDate + 'logs.txt', logMessage + '\n'); // logging to current day's log file
 
             if (data.split(' ')[0] == '/color') {
                 var color = data.split(' ')[1].trim();
