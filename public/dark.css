@@ -24,7 +24,6 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-image: url(https://www.iconexperience.com/_img/v_collection_png/512x512/shadow/fancy_cake.png);
 }
 
 ul {
@@ -98,7 +97,6 @@ ul {
   display: none;
   /*background-color:#2d2d2d*/
   background-color:#1c1c1c;
-  background-image: url(https://www.iconexperience.com/_img/v_collection_png/512x512/shadow/fancy_cake.png);
 }
 
 /* Font */
