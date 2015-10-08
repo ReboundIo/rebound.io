@@ -29,7 +29,7 @@ html, body {
 ul {
   list-style: none;
   word-wrap: break-word;
-  color: #3e3e3e;
+  color: #lightseagreen;
 }
 
 /* Pages */
@@ -50,7 +50,10 @@ ul {
 /* Login Page */
 
 .login.page {
-  background-color: lightgray;
+  background-color: cyan;
+  animation: colorRotate 10s ease-in infinite;
+  -moz-animation: colorRotate 10s ease-in infinite;
+  -webkit-animation: colorRotate 10s ease-in infinite;
 }
 
 .login.page .form {
@@ -105,7 +108,7 @@ ul {
 
 .messages {
   font-size: 150%;
-  color: darkorchid;
+  color: lightseagreen;
 }
 
 .system {
@@ -117,30 +120,37 @@ ul {
 
 @keyframes colorRotate {
     from {
+        background-color: rgb(255, 0, 0);
         color: rgb(255, 0, 0);
         text-shadow: 0px 2px 8px rgb(255, 0, 0);
     }
     16.6% {
+        background-color: rgb(255, 0, 255)
         color: rgb(255, 0, 255);
         text-shadow: 0px 2px 8px rgb(255, 0, 255);
     }
     33.3% {
+        background-color: rgb(0, 0, 255);
         color: rgb(0, 0, 255);
         text-shadow: 0px 2px 8px rgb(0, 0, 255);
     }
     50% {
+        background-color: rgb(0, 255, 255);
         color: rgb(0, 255, 255);
         text-shadow: 0px 2px 8px rgb(0, 255, 255);
     }
     66.6% {
+        background-color: rgb(0, 255, 0);
         color: rgb(0, 255, 0);
         text-shadow: 0px 2px 8px rgb(0, 255, 0);
     }
     83.3% {
+        background-color: rgb(255, 255, 0);
         color: rgb(255, 255, 0);
         text-shadow: 0px 2px 8px rgb(255, 255, 0);
     }
     to {
+        background-color: rgb(255, 0, 0);
         color: rgb(255, 0, 0);
         text-shadow: 0px 2px 8px rgb(255, 0, 0);
     }
