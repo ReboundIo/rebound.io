@@ -376,10 +376,10 @@ window.onblur = function() {
 
 function updateTitle() {
     if (unreadMessages == 0) {
-        //document.title = 'Rebound Chat';
+        document.title = 'Rebound Chat';
     }
     else {
-        //document.title = '[' + unreadMessages + '] Rebound Chat';
+        document.title = '[' + unreadMessages + '] Rebound Chat';
     }
 }
 
