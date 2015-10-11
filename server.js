@@ -120,12 +120,13 @@ function startServer() {
 
             socket.emit('message alert');
 
-            logMessage = Date() + ": " + sender + ": " + data;
+            var address = socket.request.connection.remoteAddress; // adding ip address to log
+            logMessage = Date() + ": " + sender + "@" + address + ":" + data + "\n";
 
             logDate = new Date();
             logFileMonth = logDate.getMonth() + 1; // adding 1 to month so january is 1 instead of 0
             logFileDate = logDate.getDate();
-            fs.appendFile(logFileMonth + '-' + logFileDate + 'logs.txt', logMessage + '\n'); // logging to current day's log file
+            fs.appendFile(logFileMonth + '-' + logFileDate + 'logs.txt', logMessage); // logging to current day's log file
 
             if (data.split(' ')[0] == '/color') {
                 var color = data.split(' ')[1].trim();
@@ -139,9 +140,6 @@ function startServer() {
 
             if (data.split(' ')[0] == '/pm') {
                 privatemsg = data.split(' ');
-                //for (i=2;i<privatemsg.length;i++) {
-                //    sendSystemMessage(privatemsg[i]);
-                //}
                 privatemsg.splice(0, 1)
                 socket.emit('send private message', privatemsg.join(' '), privatemsg.splice(0, 1));
             }
@@ -171,6 +169,7 @@ function startServer() {
         socket.on('add user', function (username) {
 
             var address = socket.request.connection.remoteAddress;
+            console.log(address + ' has connected');
 
             if (username.length > 64 || username.length < 1) {
                 socket.emit('alert', 'Usernames must be between 1 and 64 characters.');
