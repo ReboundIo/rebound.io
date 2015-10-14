@@ -4,6 +4,8 @@ var i, link_tag;
 var themeSelect;
 //checkNameColor();
 
+var messageAlert = new Audio('messagealert.mp3');
+
 $(function() {
     var FADE_TIME = 300; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -297,6 +299,7 @@ $(function() {
         if (!windowFocused) {
             unreadMessages++;
             updateTitle();
+            messageAlert.play();
         }
         addChatMessage(message);
     });
