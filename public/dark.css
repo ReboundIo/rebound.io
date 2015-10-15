@@ -99,7 +99,8 @@ ul {
 .chat.page {
   display: none;
   background-color:#1c1c1c;
-  background-image: url(http://i.imgur.com/G4jii5c.jpg);
+  background: url(http://i.imgur.com/7utOY0s.jpg);
+  background-size: 100%;
 }
 
 /* Font */
@@ -275,8 +276,7 @@ ul {
 }
 
 body {
-    background-color: #1c1c1c;
-    background-image: url(http://i.imgur.com/G4jii5c.jpg);
+    background-color: black;
 }
 
 #theme {
