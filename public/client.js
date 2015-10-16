@@ -370,7 +370,7 @@ window.onload=function() {
 window.onfocus = function() {
     windowFocused = true;
     unreadMessages = 0;
-    updateTitle();
+    // updateTitle();
 };
 
 window.onblur = function() {
