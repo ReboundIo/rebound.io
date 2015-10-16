@@ -377,14 +377,14 @@ window.onblur = function() {
     windowFocused = false;
 }
 
-function updateTitle() {
+/*function updateTitle() {
     if (unreadMessages == 0) {
         document.title = 'Rebound Chat';
     }
     else {
         document.title = '[' + unreadMessages + '] Rebound Chat';
     }
-}
+}*/
 
 //Script for changing the theme.
 
