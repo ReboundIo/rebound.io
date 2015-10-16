@@ -1,4 +1,4 @@
-var mySocket;
+﻿var mySocket;
 var unreadMessages = 0;
 var i, link_tag;
 var themeSelect;
@@ -298,7 +298,7 @@ $(function() {
     socket.on('new message', function(message, room) {
         if (!windowFocused) {
             unreadMessages++;
-            updateTitle();
+            // updateTitle();
             messageAlert.play();
         }
         addChatMessage(message);
