@@ -298,7 +298,7 @@ $(function() {
     socket.on('new message', function(message, room) {
         if (!windowFocused) {
             unreadMessages++;
-            updateTitle();
+            // updateTitle();
             messageAlert.play();
         }
         addChatMessage(message);
@@ -370,7 +370,7 @@ window.onload=function() {
 window.onfocus = function() {
     windowFocused = true;
     unreadMessages = 0;
-    updateTitle();
+    // updateTitle();
 };
 
 window.onblur = function() {
