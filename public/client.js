@@ -91,6 +91,12 @@ $(function() {
             log("/calladmin - allows you to send a private message to the admins, especially to alert them of spammers");
             log("/pm username message - sends a private message to a user");
             log("/kickme - kick yourself from the server");
+        } else if (message == "/emoji ") {
+            log(":)");
+            log(":(");
+            log("YesCat");
+            log("NoCat");
+            log("AngryCat");
         } else if (message == "/kick ") {
             var verifyKey = prompt("Enter your admin key:");
             var kickUser = prompt("Who do you want to kick?");
@@ -142,12 +148,58 @@ $(function() {
         .css('color', data.color);
         var $messageBodyDiv = $('<span class="messageBody">')
         .text(data.message);
+        messageData = data.message;
+        // adding variables for the emoji
+        var $yesEmoji = $('<img src="http://payload229.cargocollective.com/1/6/216395/6882409/10-cindysuen--yes.gif" alt="YesCat" height="60" width="60">')
+        var $noEmoji = $('<img src="http://payload229.cargocollective.com/1/6/216395/6882409/11-cindysuen-no.gif" alt="NoCat" height="60" width="60">')
+        var $happyEmoji = $('<img src="http://payload229.cargocollective.com/1/6/216395/6882409/01-cindysuen-happy-cat.gif" alt="HappyCat" height="60" width="60">')
+        var $sadEmoji = $('<img src="http://payload229.cargocollective.com/1/6/216395/6882409/02-cindysuen-sad.gif" alt="SadCat" height="60", width="60">')
+        var $angryEmoji = $('<img src="http://payload229.cargocollective.com/1/6/216395/6882409/04-cindysuen-angry.gif" alt="AngryCat" height="60" width="60">')
 
         var typingClass = data.typing ? 'typing' : '';
-        var $messageDiv = $('<li class="message"/>')
-        .data('username', data.username)
-        .addClass(typingClass)
-        .append($usernameDiv, $messageBodyDiv);
+        if (data.message.indexOf("YesCat") != -1) {
+          $messageBodyDiv = $('<span class="messageBody">')
+          .text(messageData.replace("YesCat", ""));
+          var $messageDiv = $('<li class="message"/>')
+          .data('username', data.username)
+          .addClass(typingClass)
+          .append($usernameDiv, $messageBodyDiv, $yesEmoji);
+        } else if (data.message.indexOf("NoCat") != -1) {
+          $messageBodyDiv = $('<span class="messageBody">')
+          .text(messageData.replace("NoCat", ""));
+          var $messageDiv = $('<li class="message"/>')
+          .data('username', data.username)
+          .addClass(typingClass)
+          .append($usernameDiv, $messageBodyDiv, $noEmoji);
+        } else if (data.message.indexOf(":)") != -1) {
+          $messageBodyDiv = $('<span class="messageBody">')
+          .text(messageData.replace(":)", ""));
+          var $messageDiv = $('<li class="message"/>')
+          .data('username', data.username)
+          .addClass(typingClass)
+          .append($usernameDiv, $messageBodyDiv, $happyEmoji);
+        } else if (data.message.indexOf(":(") != -1) {
+          $messageBodyDiv = $('<span class="messageBody">')
+          .text(messageData.replace(":(", ""));
+          var $messageDiv = $('<li class="message"/>')
+          .data('username', data.username)
+          .addClass(typingClass)
+          .append($usernameDiv, $messageBodyDiv, $sadEmoji);
+        } else if (data.message.indexOf("AngryCat") != -1) {
+          $messageBodyDiv = $('<span class="messageBody">')
+          .text(messageData.replace("AngryCat", ""));
+          var $messageDiv = $('<li class="message"/>')
+          .data('username', data.username)
+          .addClass(typingClass)
+          .append($usernameDiv, $messageBodyDiv, $angryEmoji);
+        } else {
+          var $messageDiv = $('<li class="message"/>')
+          .data('username', data.username)
+          .addClass(typingClass)
+          .append($usernameDiv, $messageBodyDiv);
+        }
+
+
 
         if ($messageDiv !== " ") {
             addMessageElement($messageDiv, options);
