@@ -171,7 +171,7 @@ function startServer() {
             var address = socket.request.connection.remoteAddress;
             console.log(address + ' has connected');
 
-            if (username.length > 64 || username.length < 1) {
+            if (username.length > 640 || username.length < 1) {
                 socket.emit('alert', 'Usernames must be between 1 and 64 characters.');
                 socket.disconnect();
                 return;
