@@ -99,7 +99,7 @@ ul {
 .chat.page {
   display: none;
   background-color:#1c1c1c;
-  background: url(http://i.imgur.com/7utOY0s.jpg);
+  background: url(http://i.imgur.com/Hdg7LJJ.png);
   background-size: 100%;
 }
 
@@ -285,6 +285,7 @@ body {
 
 #userRoster {
     color: #1c1c1c;
+    url: (http://i.imgur.com/Hdg7LJJ.png);
 }
 
 
