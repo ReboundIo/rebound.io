@@ -3,6 +3,8 @@ var unreadMessages = 0;
 var i, link_tag;
 var themeSelect;
 //checkNameColor();
+var bannedWords = ["shit", "SHIT", "fuck", "FUCK", "damn", "DAMN", "bitch", "BITCH", "dick", "DICK", "cock", "COCK", "pussy", "PUSSY", "asshole", "ASSHOLE", "fag", "FAG", "bastard", "BASTARD", "hodo"];
+var replaceWords = ["potatoes", "POTATOES", "hug", "HUG", "throw tomatoes at", "THROW TOMATOES AT", "illuminati", "ILLUMINATI", "nose", "NOSE", "candy", "CANDY", "music box", "MUSIC BOX", "amazing person", "AMAZING PERSON", "gift to the world", "GIFT TO THE WORLD", "one-does-not-simply-walk-into-mordor"];
 
 var messageAlert = new Audio('messagealert.mp3');
 
@@ -344,7 +346,18 @@ $(function() {
           .append($usernameDiv, $messageBodyDiv);
         }
 
+        for (i = 0;i < 10;i++) {
 
+          if (data.message.indexOf(bannedWords[i]) != -1) {
+            $messageBodyDiv = $('<span class="messageBody">')
+            .text(messageData.replace(bannedWords[i], replaceWords[i]));
+            var $messageDiv = $('<li class="message"/>')
+            .data('username', data.username)
+            .addClass(typingClass)
+            .append($usernameDiv, $messageBodyDiv);
+          }
+
+        }
 
         if ($messageDiv !== " ") {
             addMessageElement($messageDiv, options);
