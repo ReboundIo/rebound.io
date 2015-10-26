@@ -177,9 +177,9 @@ function startServer() {
                 return;
             }
             if (username.indexOf(' ') > -1) {
-                //socket.emit('alert', 'Usernames may not contain the space character " ".');
-                //socket.disconnect();
-                //return;
+                socket.emit('alert', 'Usernames may not contain the space character " ".');
+                socket.disconnect();
+                return;
             }
             if (usernames[username]) {
                 socket.emit('alert', 'That username is taken.');
