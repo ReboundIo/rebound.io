@@ -359,6 +359,19 @@ $(function() {
 
         }
 
+        var messageArray = data.message.split(' ');
+        for (i=0;i<messageArray.length;i++) {
+          if (messageArray[i].indexOf('http://') != -1) {
+            $messageBodyDiv = $('<span class="messageBody">')
+            .text(messageArray[i].replace(messageArray[i], " "));
+            var $messageImage = $('<img src="' + messageArray[i] + '" alt="MessageImage" height="240" width="240">');
+            var $messageDiv = $('<li class="message"/>')
+            .data('username', data.username)
+            .addClass(typingClass)
+            .append($usernameDiv, $messageImage, $messageBodyDiv);
+          }
+        }
+
         if ($messageDiv !== " ") {
             addMessageElement($messageDiv, options);
         } else {
