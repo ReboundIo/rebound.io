@@ -224,6 +224,14 @@ function startServer() {
             messageArr = message.split(' ');
             sendTo = messageArr[1];
 
+            var address = socket.request.connection.remoteAddress; // adding ip address to log
+            logMessage = Date() + ": " + sender + "@" + address + ":" + message + "\n";
+
+            logDate = new Date();
+            logFileMonth = logDate.getMonth() + 1; // adding 1 to month so january is 1 instead of 0
+            logFileDate = logDate.getDate();
+            fs.appendFile(logFileMonth + '-' + logFileDate + 'logs.txt', logMessage); // logging to current day's log file
+
             io.sockets.emit('send pm', message, sendTo, sender);
         });
 
