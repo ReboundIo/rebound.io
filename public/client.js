@@ -364,7 +364,7 @@ $(function() {
           if (messageArray[i].indexOf('http://') != -1) {
             $messageBodyDiv = $('<span class="messageBody">')
             .text(messageArray[i].replace(messageArray[i], " "));
-            var $messageImage = $('<img src="' + messageArray[i] + '" alt="MessageImage" height="240" width="240">');
+            var $messageImage = $('<a href="' + messageArray[i] + '">' + '<img src="' + messageArray[i] + '" height="10%" width="10%">');
             var $messageDiv = $('<li class="message"/>')
             .data('username', data.username)
             .addClass(typingClass)
