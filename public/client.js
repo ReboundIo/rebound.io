@@ -126,7 +126,12 @@ $(function() {
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
         } else if (message.split(' ')[0] == "/pm") {
             socket.emit('process pm', message, message.split(' ')[1], username);
-
+        } else if (message = "/theme") {
+          log("Defauilt");
+          log("Light");
+          log("Seahawks");
+        } else if (message = message.split(' ')[0] == "/theme") {
+          updateTheme(message.split(' ')[1])
         } else {
           socket.emit('new message', message, 1, username);
         }
@@ -625,21 +630,6 @@ function switchStyle(css_title) {
   }
 }
 
-//function updateTheme() {
-//    themeSelect = document.getElementById("themeSelect").value;
-//
-//    if (themeSelect = "Dark Theme") {
-//        switchStyle('dark');
-//        return false;
-//    } else if (themeSelect = "Light Theme") {
-//        switchStyle('dark');
-//        return false;
-//    } else if (themeSelect = "Seahawks Theme") {
-//        switchStyle('blue');
-//        return false;
-//    }
-//}
-
 //Name color stuff
 
 /*function checkNameColor() {
@@ -654,17 +644,15 @@ function setCookie(cookiename,cookievalue,expdate) {
     document.cookie = cname+"="+cvalue+"; "+expires;
 }*/
 
-/*function updateTheme() {
-    themeSelect = document.getElementById("themeSelect").value;
-
-    if (themeSelect = "Dark Theme") {
+function updateTheme(themeSelect) {
+    if (themeSelect = "Default" || themeSelect = "default") {
         switchStyle('dark');
         return false;
-    } else if (themeSelect = "Light Theme") {
-        switchStyle('dark');
+    } else if (themeSelect = "Light" || themeSelect = "light") {
+        switchStyle('light');
         return false;
-    } else if (themeSelect = "Seahawks Theme") {
+    } else if (themeSelect = "Seahawks" || themeSelect = "seahawks") {
         switchStyle('blue');
         return false;
     }
-}*/
+}
