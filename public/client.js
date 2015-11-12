@@ -1,7 +1,7 @@
 ﻿var mySocket;
 var unreadMessages = 0;
 var i, link_tag;
-var themeSelect;
+var selectTheme;
 //checkNameColor();
 var bannedWords = ["shit", "SHIT", "fuck", "FUCK", "damn", "DAMN", "bitch", "BITCH", "dick", "DICK", "cock", "COCK", "pussy", "PUSSY", "asshole", "ASSHOLE", "fag", "FAG", "bastard", "BASTARD", "hoda", "HODA"];
 var replaceWords = ["potatoes", "POTATOES", "hug", "HUG", "throw tomatoes at", "THROW TOMATOES AT", "illuminati", "ILLUMINATI", "nose", "NOSE", "candy", "CANDY", "music box", "MUSIC BOX", "avocado", "AVOCADO", "amazing person", "AMAZING PERSON", "gift to the world", "GIFT TO THE WORLD", "one-does-not-simply-walk-into-hordor", "naturally-a-disaster"];
@@ -126,12 +126,13 @@ $(function() {
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
         } else if (message.split(' ')[0] == "/pm") {
             socket.emit('process pm', message, message.split(' ')[1], username);
-        } else if (message = "/theme") {
-          log("Defauilt");
-          log("Light");
-          log("Seahawks");
+        } else if (message == "/theme ") {
+          log("default");
+          log("light");
+          log("seahawks");
         } else if (message = message.split(' ')[0] == "/theme") {
-          updateTheme(message.split(' ')[1])
+          messageSplit = message.toString();
+          updateTheme(messageSplit[1]);
         } else {
           socket.emit('new message', message, 1, username);
         }
@@ -591,10 +592,6 @@ function defaultTheme() {
     document.cookie = theme+"; expires=Thu, 31 Dec 2099 12:34:56 UTC";
 }
 
-window.onload=function() {
-    setInterval(updateTheme, 1);
-};
-
 window.onfocus = function() {
     windowFocused = true;
     unreadMessages = 0;
@@ -645,13 +642,13 @@ function setCookie(cookiename,cookievalue,expdate) {
 }*/
 
 function updateTheme(themeSelect) {
-    if (themeSelect = "Default" || themeSelect = "default") {
+    if (themeSelect.toLowerCase() == "default ") {
         switchStyle('dark');
         return false;
-    } else if (themeSelect = "Light" || themeSelect = "light") {
+    } else if (themeSelect.toLowerCase() == "light ") {
         switchStyle('light');
         return false;
-    } else if (themeSelect = "Seahawks" || themeSelect = "seahawks") {
+    } else if (themeSelect.toLowerCase() == "seahawks ") {
         switchStyle('blue');
         return false;
     }
