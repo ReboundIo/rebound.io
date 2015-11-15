@@ -131,7 +131,7 @@ $(function() {
           log("defauilt");
           log("light");
           log("seahawk");
-        } else if (message.split(' ')[0] == "/settheme") {
+        } else if (message.split(' ')[0] == "/settheme ") {
           newSwitchStyle(message.split(' ')[1]);
         } else {
           socket.emit('new message', message, 1, username);
@@ -662,3 +662,8 @@ function setCookie(cookiename,cookievalue,expdate) {
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname+"="+cvalue+"; "+expires;
 }*/
+
+$('.nav-side .nav-toggle').on('click', function (e) {
+  e.preventDefault();
+  $(this).parent().toggleClass('nav-open');
+});
