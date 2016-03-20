@@ -126,11 +126,11 @@ $(function() {
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
         } else if (message.split(' ')[0] == "/pm") {
             socket.emit('process pm', message, message.split(' ')[1], username);
-        } else if (message == "/theme ") {
+        } else if (message = "/theme ") {
           log("defauilt");
           log("light");
-          log("seahawk");
-        } else if (message.split(' ')[0] == "/settheme") {
+          log("seahawks");
+        } else if (message = message.split(' ')[0] == "/settheme") {
           switchStyle(message.split(' ')[1]);
         } else {
           socket.emit('new message', message, 1, username);
