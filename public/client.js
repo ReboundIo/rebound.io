@@ -126,12 +126,7 @@ $(function() {
             socket.emit('send admin key: spin', verifyKey, spinUser, username);
         } else if (message.split(' ')[0] == "/pm") {
             socket.emit('process pm', message, message.split(' ')[1], username);
-        } else if (message = "/theme ") {
-          log("defauilt");
-          log("light");
-          log("seahawks");
-        } else if (message = message.split(' ')[0] == "/settheme") {
-          switchStyle(message.split(' ')[1]);
+
         } else {
           socket.emit('new message', message, 1, username);
         }
@@ -630,6 +625,21 @@ function switchStyle(css_title) {
   }
 }
 
+//function updateTheme() {
+//    themeSelect = document.getElementById("themeSelect").value;
+//
+//    if (themeSelect = "Dark Theme") {
+//        switchStyle('dark');
+//        return false;
+//    } else if (themeSelect = "Light Theme") {
+//        switchStyle('dark');
+//        return false;
+//    } else if (themeSelect = "Seahawks Theme") {
+//        switchStyle('blue');
+//        return false;
+//    }
+//}
+
 //Name color stuff
 
 /*function checkNameColor() {
@@ -642,4 +652,19 @@ function setCookie(cookiename,cookievalue,expdate) {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname+"="+cvalue+"; "+expires;
+}*/
+
+/*function updateTheme() {
+    themeSelect = document.getElementById("themeSelect").value;
+
+    if (themeSelect = "Dark Theme") {
+        switchStyle('dark');
+        return false;
+    } else if (themeSelect = "Light Theme") {
+        switchStyle('dark');
+        return false;
+    } else if (themeSelect = "Seahawks Theme") {
+        switchStyle('blue');
+        return false;
+    }
 }*/
