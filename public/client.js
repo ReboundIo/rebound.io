@@ -94,7 +94,6 @@ $(function() {
             log("/pm username message - sends a private message to a user");
             log("/kickme - kick yourself from the server");
             log("/emoji - shows you a list of all the available symbols/emoticons");
-            log("/theme")
         } else if (message == "/emoji ") {
             log(":)");
             log(":(");
@@ -132,7 +131,7 @@ $(function() {
           log("light");
           log("seahawk");
         } else if (message.split(' ')[0] == "/settheme") {
-          newSwitchStyle(message.split(' ')[1]);
+          switchStyle(message.split(' ')[1]);
         } else {
           socket.emit('new message', message, 1, username);
         }
@@ -615,26 +614,8 @@ function updateTitle() {
     }
 }
 
-function newSwitchStyle(css_title) {
-  all_link = document.getElementsByTagName("link");
-  main_link = all_link[0];
-  if (css_title == "default") {
-    main_link.href = "default.css";
-    log("Default theme has been set as your theme.");
-  } else if (css_title == "light") {
-    main_link.href = "light.css";
-    log("Light theme has been set as your theme.");
-  } else if (css_title == "seahawk") {
-    main_link.href = "seahawk.css";
-    log("Seahawk theme has been set as your theme");
-  } else {
-    log("Sorry, that is not a valid theme. Remember, the themes are case-sensitive.")
-  }
-}
 //Script for changing the theme.
-/*function newStyleSwitch(css_href) {
-  $(link).attr("href", css_href);
-}*/
+
 function switchStyle(css_title) {
   var i, link_tag ;
   for (i = 0, link_tag = document.getElementsByTagName("link") ;
